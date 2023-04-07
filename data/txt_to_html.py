@@ -1,59 +1,68 @@
-tabela = '''<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
-    <title>Document</title>
-</head>
-<body>
-    <table id="tabela_tubos">
-        <thead>
-            <tr>
-campo1            </tr>
-        </thead>
-        <tbody>
-campo2        </tbody>
-    </table>
-    <script src="tubos.js"></script>
-</body>
-</html>
-'''
+import os
 
-template_linha = '''            <tr>
-campo            </tr>\n'''
+class TxtToHtml():
+    def __init__(self,nome_arquivo):
+        self.nome_arquivo = nome_arquivo
+        self.tabela = f'''<!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style.css">
+        <title>{self.nome_arquivo}</title>
+    </head>
+    <body>
+        <table id="{self.nome_arquivo}">
+            <thead>
+                <tr>
+campo1                </tr>
+            </thead>
+            <tbody>
+campo2            </tbody>
+        </table>
+        <script src="tubos.js"></script>
+    </body>
+    </html>
+    '''
 
-with open('tubos.txt','r', encoding='utf-8') as arquivo:
-    conteudo = arquivo.readlines()
+        self.template_linha = '''                <tr>
+campo                </tr>\n'''
 
-def formatar_cabecalho():
-    global tabela
-    campos = conteudo[0].split('\t')
-    codigo_html = ''
+        with open(f'{self.nome_arquivo}.txt','r', encoding='utf-8') as arquivo:
+            self.conteudo = arquivo.readlines()
 
-    for campo in campos:
-        campo = campo.strip()
-        codigo_html += f'                <th>{campo}</th>\n'
+        self.formatar_cabecalho()
+        self.formatar_corpo()
 
-    tabela = tabela.replace('campo1',codigo_html)
+        with open(f'{self.nome_arquivo}.html','w', encoding='utf-8') as arquivo:
+            arquivo.write(self.tabela)
 
-def formatar_corpo():
-    global tabela
-    conjunto_linhas = ''
-    for campos in conteudo[1:]:
-        campos = campos.split('\t')
-        linhas = ''
+
+    def formatar_cabecalho(self):
+        campos = self.conteudo[0].split('\t')
+        codigo_html = ''
+
         for campo in campos:
             campo = campo.strip()
-            linhas +=  f'                <td>{campo}</td>\n'
-        
-        conjunto_linhas += template_linha.replace('campo',linhas)
+            codigo_html += f'                    <th>{campo}</th>\n'
 
-    tabela = tabela.replace('campo2',conjunto_linhas)
+        self.tabela = self.tabela.replace('campo1',codigo_html)
 
-formatar_cabecalho()
-formatar_corpo()
+    def formatar_corpo(self):
+        conjunto_linhas = ''
+        for campos in self.conteudo[1:]:
+            campos = campos.split('\t')
+            linhas = ''
+            for campo in campos:
+                campo = campo.strip()
+                linhas +=  f'                    <td>{campo}</td>\n'
+            
+            conjunto_linhas += self.template_linha.replace('campo',linhas)
 
-with open('tubos.html','w', encoding='utf-8') as arquivo:
-    arquivo.write(tabela)
+        self.tabela = self.tabela.replace('campo2',conjunto_linhas)
+
+for arquivo in os.listdir():
+    if arquivo.endswith('.txt'):
+        nome_arquivo = arquivo.replace('.txt','')
+        TxtToHtml(nome_arquivo)

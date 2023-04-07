@@ -8,3 +8,4 @@ function obter_tipos_de_tubo(){
 }
 
 obter_tipos_de_tubo();
+
