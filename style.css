@@ -1,5 +1,5 @@
 :root{
-    --largura: 70%;
+    --largura: 60%;
 }
 
 *{
@@ -46,11 +46,42 @@ iframe{
 }
 
 .vazao{
-    margin-top: 8px;
-    margin-left: 8px;
+    height: 2.5em;
+    margin: 8px;
     width: var(--largura);
+    display: flex;
+    gap: 8px;
 }
 
 .vazao select{
-    width: 50%;
+    flex: 1;
+    font-size: 12px;
+}
+
+.campo{
+    height: 2.5em;
+    line-height: 2.5em;
+    padding-left: 1em;
+    flex: 0.5;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #7a7a7a;
+}
+
+@media (max-width: 1200px){
+    :root{
+        --largura: 70%;
+    }
+}
+
+@media (max-width: 900px){
+    :root{
+        --largura: 95%;
+    }
+}
+
+@media (max-width: 700px){
+    *{
+        font-size: 12px;
+    }
 }

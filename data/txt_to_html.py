@@ -21,7 +21,6 @@ campo1                </tr>
             <tbody>
 campo2            </tbody>
         </table>
-        <script src="tubos.js"></script>
     </body>
     </html>
     '''
