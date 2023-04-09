@@ -45,6 +45,10 @@ iframe{
     height: 30vh;
 }
 
+.geral{
+    width: 80%;
+}
+
 @media (max-width: 1200px){
     :root{
         --largura: 70%;
@@ -54,6 +58,9 @@ iframe{
 @media (max-width: 900px){
     :root{
         --largura: 95%;
+    }
+    .geral{
+        width: 95%;
     }
 }
 

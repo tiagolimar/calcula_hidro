@@ -1,6 +1,11 @@
 const id_tabela_tubo = 'tabela-tubos';
 const seletor_material = document.querySelector('#selecionar-material');
 const seletor_diametro = document.querySelector('#selecionar-diametro');
+const input_dn_interno = document.querySelector('#dn-int');
+const input_vazao = document.querySelector('#vazao');
+const input_peso = document.querySelector('#peso');
+const input_velocidade = document.querySelector('#velocidade');
+const precisao = 3;
 
 const Tubo = {
     Material: '',
@@ -17,6 +22,29 @@ const Tubo = {
 window.addEventListener('load', function() {
     preencher_materiais();
 });
+
+function calcula_vazao() {
+    peso = input_peso.value;
+
+    if(!peso || peso < 0) input_peso.classList.add('text-danger');
+    else input_peso.classList.remove('text-danger');
+
+    vazao = (0.3*peso**(0.5))/1000*3600;
+    input_vazao.value = vazao.toFixed(precisao);
+    calcula_velocidade();
+}
+
+function calcula_velocidade(){
+    vazao = input_vazao.value;
+    diametro = input_dn_interno.value;
+    
+    if(vazao && diametro){
+        vazao /= 3600;
+        diametro /= 1000;
+        velocidade = (4*vazao)/(Math.PI*diametro**2)
+        input_velocidade.value = velocidade.toFixed(precisao);
+    }
+}
 
 function obter_materiais(){
     const iframe = document.querySelector(`#${id_tabela_tubo}`);
@@ -74,9 +102,14 @@ function preencher_diametros(){
         opcao.innerHTML = diametros[i];
         seletor_diametro.appendChild(opcao);
     }
+
+    input_dn_interno.value = Tubo.DnInterno[Tubo.Id_Dn].replace(',','.');
+    calcula_velocidade();
 }
 
 function preencher_id_dn(){
     Tubo.Id_Dn = event.target.options[event.target.selectedIndex].value;
-    console.log(Tubo.Id_Dn);
+    input_dn_interno.value = Tubo.DnInterno[Tubo.Id_Dn].replace(',','.');
+    calcula_velocidade();
 }
+
