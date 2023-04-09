@@ -10,33 +10,44 @@
 </head>
 <body>
     <iframe src="data/tubos.html" id="tabela-tubos"></iframe>
-    <div class="row mt-4">
-        <div class="col">
-          <label for="vazao">Peso Relativo:</label>
-          <input type="number" id="vazao" class="form-control">
+    <div class="row geral column-gap-2 m-4">
+        <div class="col col1">
+          <div class="row row1">
+            <label for="peso-relativo">Peso Relativo:</label>
+            <input type="number" id="peso-relativo" class="form-control">
+          </div>
+          <div class="row row2">
+            <label for="perda">Velocidade:</label>
+            <input type="number" value="0.0000" id="perda" class="form-control" disabled>
+          </div>
         </div>
-        <div class="col">
-          <label for="vazao">Vazão (m³/h):</label>
-          <input type="number" id="vazao" class="form-control">
-        </div>
-        <div class="col">
-          <label for="selecionar-material">Material:</label>
-          <select id="selecionar-material" onchange="preencher_diametros()"  class="form-select">
-            <option value="0"></option>
-          </select>
-        </div>
-        <div class="col">
-          <label for="selecionar-diametro">Diâmetro (mm)</label>
-          <select id="selecionar-diametro" class="form-select">
-            <option value=0></option>
-          </select>
-        </div>
-        <div class="col">
+        <div class="col col2">
+          <div class="row row1">
+            <label for="vazao">Vazão (m³/h):</label>
+            <input type="number" id="vazao" class="form-control">
+          </div>
+          <div class="row row2">
             <label for="perda">Perda:</label>
-          <input type="number" value="0.0000" id="perda" class="form-control" disabled>
+            <input type="number" value="0.0000" id="perda" class="form-control" disabled>
+          </div>
         </div>
-      </div>
+        <div class="col col3">
+          <div class="row row1">
+            <label for="selecionar-material">Material:</label>
+            <select id="selecionar-material" onchange="preencher_diametros()"  class="form-select">
+              <option value="0"></option>
+            </select>
+          </div>
+        </div>
+        <div class="col col4">
+          <div class="row row1">
+            <label for="selecionar-diametro">Diâmetro (mm)</label>
+            <select id="selecionar-diametro" class="form-select">
+              <option value=0></option>
+            </select>
+          </div>
+        </div>
       
+    </body>
     <script src="script.js"></script>
-</body>
 </html>
