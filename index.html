@@ -14,7 +14,7 @@
         <div class="col col1">
           <div class="row row1 overflow-hidden">
             <label for="peso">Peso Relativo:</label>
-            <input type="number" step="0.1" id="peso" oninput="calcula_vazao()" class="form-control">
+            <input type="number" step="0.001" id="peso" oninput="calcula_vazao()" class="form-control">
           </div>
           <div class="row row2 overflow-hidden">
             <label for="velocidade">Velocidade (m/s):</label>
@@ -24,7 +24,7 @@
         <div class="col col2">
           <div class="row row1 overflow-hidden">
             <label for="vazao">Vazão (m³/h):</label>
-            <input type="number" step="0.01" id="vazao" class="form-control">
+            <input type="number" step="0.001" id="vazao" oninput="calcula_peso()" class="form-control">
           </div>
           <div class="row row2 overflow-hidden">
             <label for="perda">J<sub>UNIT.</sub> (m/m):</label>
@@ -33,8 +33,8 @@
         </div>
         <div class="col col3">
           <div class="row row1 overflow-hidden">
-            <label for="selecionar-material">Material:</label>
-            <select id="selecionar-material" onchange="preencher_diametros()"  class="form-select">
+            <label for="material">Material:</label>
+            <select id="material" onchange="preencher_diametros()"  class="form-select">
               <option value="0"></option>
             </select>
           </div>
@@ -45,8 +45,8 @@
         </div>
         <div class="col col4">
           <div class="row row1 overflow-hidden">
-            <label for="selecionar-diametro">DN (mm)</label>
-            <select id="selecionar-diametro" onchange="preencher_id_dn()" class="form-select">
+            <label for="diametro">DN (mm)</label>
+            <select id="diametro" onchange="preencher_id_dn()" class="form-select">
               <option value=0></option>
             </select>
           </div>

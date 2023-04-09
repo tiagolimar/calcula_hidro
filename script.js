@@ -1,6 +1,6 @@
 const id_tabela_tubo = 'tabela-tubos';
-const seletor_material = document.querySelector('#selecionar-material');
-const seletor_diametro = document.querySelector('#selecionar-diametro');
+const seletor_material = document.querySelector('#material');
+const seletor_diametro = document.querySelector('#diametro');
 const input_dn_interno = document.querySelector('#dn-int');
 const input_vazao = document.querySelector('#vazao');
 const input_peso = document.querySelector('#peso');
@@ -34,6 +34,18 @@ function calcula_vazao() {
     calcula_velocidade();
 }
 
+function calcula_peso() {
+    vazao = input_vazao.value;
+
+    if(!vazao || vazao < 0) input_vazao.classList.add('text-danger');
+    else input_vazao.classList.remove('text-danger');
+
+    vazao = vazao*1000/3600;
+    peso = (vazao/0.3)**2;
+    input_peso.value = peso.toFixed(precisao);
+    calcula_velocidade();
+}
+
 function calcula_velocidade(){
     vazao = input_vazao.value;
     diametro = input_dn_interno.value;
@@ -46,6 +58,12 @@ function calcula_velocidade(){
     }
 }
 
+function preencher_id_dn(){
+    Tubo.Id_Dn = event.target.options[event.target.selectedIndex].value;
+    input_dn_interno.value = Tubo.DnInterno[Tubo.Id_Dn].replace(',','.');
+    calcula_velocidade();
+}
+
 function obter_materiais(){
     const iframe = document.querySelector(`#${id_tabela_tubo}`);
     const coluna_materiais = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(1)');
@@ -53,25 +71,6 @@ function obter_materiais(){
     coluna_materiais.forEach(celula => valores_materiais.push(celula.textContent));
     const materiais = Array.from(new Set(valores_materiais));
     return materiais
-}
-
-function obter_diametros(material) {
-    const iframe = document.querySelector(`#${id_tabela_tubo}`);
-
-    const coluna_materiais = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(1)');
-    const coluna_dn = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(2)');
-    const coluna_dn_interno = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(5)');
-
-    for(let i in coluna_materiais){
-        valor_material = coluna_materiais[i].textContent;
-        
-        if(valor_material === material) {
-            valor_dn = coluna_dn[i].textContent;
-            valor_dn_interno = coluna_dn_interno[i].textContent;
-            Tubo.Dn.push(valor_dn);
-            Tubo.DnInterno.push(valor_dn_interno);
-        }
-    }
 }
 
 function preencher_materiais(){
@@ -84,6 +83,29 @@ function preencher_materiais(){
         i++;
         opcao.innerHTML = material;
         seletor_material.appendChild(opcao);
+    }
+}
+
+function obter_diametros(material) {
+    const iframe = document.querySelector(`#${id_tabela_tubo}`);
+
+    const coluna_materiais = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(1)');
+    const coluna_dn = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(2)');
+    const coluna_dn_interno = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(5)');
+
+    Tubo.Dn = [];
+    Tubo.DnInterno = [];
+    Tubo.Id_Dn = 0;
+
+    for(let i in coluna_materiais){
+        valor_material = coluna_materiais[i].textContent;
+        
+        if(valor_material === material) {
+            valor_dn = coluna_dn[i].textContent;
+            valor_dn_interno = coluna_dn_interno[i].textContent;
+            Tubo.Dn.push(valor_dn);
+            Tubo.DnInterno.push(valor_dn_interno);
+        }
     }
 }
 
@@ -106,10 +128,3 @@ function preencher_diametros(){
     input_dn_interno.value = Tubo.DnInterno[Tubo.Id_Dn].replace(',','.');
     calcula_velocidade();
 }
-
-function preencher_id_dn(){
-    Tubo.Id_Dn = event.target.options[event.target.selectedIndex].value;
-    input_dn_interno.value = Tubo.DnInterno[Tubo.Id_Dn].replace(',','.');
-    calcula_velocidade();
-}
-
