@@ -84,6 +84,11 @@ function preencher_materiais(){
         opcao.innerHTML = material;
         seletor_material.appendChild(opcao);
     }
+
+    if (seletor_diametro.options.length < 1){
+        seletor_material.options[0].selectedIndex = 0;
+    }
+    preencher_diametros();
 }
 
 function obter_diametros(material) {
@@ -114,7 +119,7 @@ function preencher_diametros(){
         seletor_diametro.removeChild(seletor_diametro.firstChild);
     }
     
-    let material = event.target.options[event.target.selectedIndex].innerHTML;
+    let material = seletor_material.options[seletor_material.selectedIndex].innerHTML;
     obter_diametros(material);
     let diametros = Tubo.Dn;
 
