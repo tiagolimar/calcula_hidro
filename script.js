@@ -1,10 +1,17 @@
 const id_tabela_tubo = 'tabela-tubos';
+
 const seletor_material = document.querySelector('#material');
 const seletor_diametro = document.querySelector('#diametro');
+
 const input_dn_interno = document.querySelector('#dn-int');
 const input_vazao = document.querySelector('#vazao');
+const display_vazao = document.querySelector('#display-vazao');
 const input_peso = document.querySelector('#peso');
 const input_velocidade = document.querySelector('#velocidade');
+const input_perda = document.querySelector('#perda');
+const input_perda_total = document.querySelector('#perda-total');
+const input_comprimento = document.querySelector('#comprimento');
+
 const precisao = 3;
 
 const Tubo = {
@@ -24,44 +31,58 @@ window.addEventListener('load', function() {
 });
 
 function calcula_vazao() {
-    peso = input_peso.value;
+    let peso = input_peso.value;
 
     if(!peso || peso < 0) input_peso.classList.add('text-danger');
     else input_peso.classList.remove('text-danger');
 
-    vazao = (0.3*peso**(0.5))/1000*3600;
+    let vazao_ls = (0.3*peso**(0.5))
+    let vazao = vazao_ls/1000*3600;
+
     input_vazao.value = vazao.toFixed(precisao);
-    calcula_velocidade();
+    display_vazao.value = vazao_ls.toFixed(precisao);
+    calcula_velocidade_perda();
 }
 
 function calcula_peso() {
-    vazao = input_vazao.value;
+    let vazao = input_vazao.value;
 
     if(!vazao || vazao < 0) input_vazao.classList.add('text-danger');
     else input_vazao.classList.remove('text-danger');
 
-    vazao = vazao*1000/3600;
-    peso = (vazao/0.3)**2;
+    let vazao_ls = vazao*1000/3600;
+    let peso = (vazao_ls/0.3)**2;
+
+    display_vazao.value = vazao_ls.toFixed(precisao);
     input_peso.value = peso.toFixed(precisao);
-    calcula_velocidade();
+    calcula_velocidade_perda();
 }
 
-function calcula_velocidade(){
-    vazao = input_vazao.value;
-    diametro = input_dn_interno.value;
+function calcula_velocidade_perda(){
+    let vazao = input_vazao.value;
+    let diametro = input_dn_interno.value;
+    let comprimento = input_comprimento.value;
     
-    if(vazao && diametro){
+    if(vazao>0 && diametro>0){
         vazao /= 3600;
         diametro /= 1000;
-        velocidade = (4*vazao)/(Math.PI*diametro**2)
+
+        let velocidade = (4*vazao)/(Math.PI*diametro**2)
+        let perda = 0.000859*(vazao**(1.75))/(diametro**4.75);
+
         input_velocidade.value = velocidade.toFixed(precisao);
+        input_perda.value = perda.toFixed(precisao+1);
+
+        if(comprimento>0){
+            input_perda_total.value = (comprimento*perda).toFixed(precisao);
+        }
     }
 }
 
 function preencher_id_dn(){
     Tubo.Id_Dn = event.target.options[event.target.selectedIndex].value;
     input_dn_interno.value = Tubo.DnInterno[Tubo.Id_Dn].replace(',','.');
-    calcula_velocidade();
+    calcula_velocidade_perda();
 }
 
 function obter_materiais(){
@@ -131,5 +152,5 @@ function preencher_diametros(){
     }
 
     input_dn_interno.value = Tubo.DnInterno[Tubo.Id_Dn].replace(',','.');
-    calcula_velocidade();
+    calcula_velocidade_perda();
 }
