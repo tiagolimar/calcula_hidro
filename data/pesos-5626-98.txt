@@ -1,0 +1,14 @@
+PEÇA HIDROSSANITÁRIA	PESO RELATIVO
+Bacia sanitária com caixa acoplada	0,30
+Bacia sanitária com válvula de descarga	32,00
+Banheira	1,00
+Bebedouro	0,10
+Bidê/Ducha higiênica	0,10
+Chuveiro elétrico	0,10
+Ducha	0,40
+Lavatório de banheiro	0,30
+Máquina de lavar roupas	1,00
+Pia de cozinha	0,70
+Tanque de lavar roupas	0,70
+Torneira de jardim	0,40
+Mictório com válvula de descarga	0,30
