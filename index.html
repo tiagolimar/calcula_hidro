@@ -69,6 +69,70 @@
                 <input type="number" value="0.000" id="perda-total" class="form-control" disabled>
               </div>
             </div>
+    </div>
+      </div>
+    </div>
+    <iframe src="data/conexoes.html" id="tabela-pecas"></iframe>
+    <div class="card border-primary geral m-4">
+      <div class="card-header">
+        <h3 class="card-title">Dimensionamento de Tubulações de Água Fria</h3>
+      </div>
+      <div class="card-body">
+        <div class="row column-gap-2 m-1">
+          <div class="col col3">
+            <div class="row row1 overflow-hidden">
+              <label for="material">Material:</label>
+              <select id="material" onchange="preencher_diametros()"  class="form-select">
+              </select>
+            </div>
+            <div class="row row2 overflow-hidden">
+              <label for="perda">J<sub>UNIT.</sub> (m/m):</label>
+              <input type="number" value="0.000" id="perda" class="form-control" disabled>
+            </div>
+          </div>
+          <div class="col col5">
+            <div class="row row1 overflow-hidden">
+              <label for="diametro">DN (mm)</label>
+              <select id="diametro" onchange="preencher_id_dn()" class="form-select">
+                <option value=0></option>
+              </select>
+            </div>
+            <div class="row row2 overflow-hidden">
+              <label for="dn-int">DN<sub>INT.</sub> (mm):</label>
+              <input type="number" value="0.000" id="dn-int" class="form-control" disabled>
+            </div>
+          </div>
+            <div class="col col1">
+              <div class="row row1 overflow-hidden">
+                <label for="peso">Peso Relativo:</label>
+                <input type="number" step="0.001" id="peso" oninput="calcula_vazao()" value="0.000" class="form-control">
+              </div>
+              <div class="row row2 overflow-hidden">
+                <label for="velocidade">Velocidade (m/s):</label>
+                <input type="number" value="0.000" id="velocidade" class="form-control" disabled>
+              </div>
+            </div>
+            <div class="col col2">
+              <div class="row row1 overflow-hidden">
+                <label for="vazao">Vazão (m³/h):</label>
+                <input type="number" step="0.001" id="vazao" oninput="calcula_peso()" value="0.000" class="form-control">
+              </div>
+              <div class="row row2 overflow-hidden">
+                <label for="display-vazao">Vazão (l/s):</label>
+                <input type="number" value="0.000" id="display-vazao" class="form-control" disabled>
+              </div>
+            </div>
+            <div class="col col4">
+              <div class="row row1 overflow-hidden">
+                <label for="comprimento">L<sub>TOTAL</sub> (m)</label>
+                <input type="number" id="comprimento" oninput="calcula_velocidade_perda()" value="0.000" class="form-control">
+              </div>
+              <div class="row row2 overflow-hidden">
+                <label for="perda-total">J<sub>TOTAL</sub> (mca):</label>
+                <input type="number" value="0.000" id="perda-total" class="form-control" disabled>
+              </div>
+            </div>
+    </div>
       </div>
     </div>
     </body>

@@ -1,4 +1,7 @@
-const id_tabela_tubo = 'tabela-tubos';
+"use strict";
+
+const id_iframe_tubo = 'tabela-tubos';
+const id_iframe_peca = 'tabela-pecas';
 
 const seletor_material = document.querySelector('#material');
 const seletor_diametro = document.querySelector('#diametro');
@@ -14,6 +17,8 @@ const input_comprimento = document.querySelector('#comprimento');
 
 const precisao = 3;
 
+let tabela_tubo = {};
+let tabela_peca = {};
 const Tubo = {
     Material: '',
     Id_Dn: 0,
@@ -24,11 +29,64 @@ const Tubo = {
     PerdaDeCargaUnitaria: 0,
     PerdaDeCargaTotal: 0,
     Comprimento: 0
+};
+
+const caracteres = {
+    'á': 'a',
+    'à': 'a',
+    'â': 'a',
+    'ã': 'a',
+    'é': 'e',
+    'è': 'e',
+    'ê': 'e',
+    'í': 'i',
+    'ì': 'i',
+    'î': 'i',
+    'ó': 'o',
+    'ò': 'o',
+    'ô': 'o',
+    'õ': 'o',
+    'ú': 'u',
+    'ù': 'u',
+    'û': 'u',
+    'ç': 'c',
+    '.':'',
+    ' ':'-',
+    '\\':'-'
   };
+  
+function substituir_caracteres(str) {
+    let new_str = '';
+    for (let char of str) new_str += caracteres[char] || char;
+    return new_str;
+}
 
 window.addEventListener('load', function() {
+    tabela_tubo = iframe_para_objeto(id_iframe_tubo,'tubo');
+    tabela_peca = iframe_para_objeto(id_iframe_peca,'peca');
     preencher_materiais();
 });
+
+function iframe_para_objeto(id,nome){
+    const iframe = document.querySelector(`#${id}`);
+    const celulas_cabecalho = Array.from(iframe.contentDocument.documentElement.querySelectorAll('th'));
+    let objeto = {}
+
+    for(let i in celulas_cabecalho){
+        let conteudo = celulas_cabecalho[i].textContent;
+        conteudo = conteudo.toLowerCase();
+        conteudo = conteudo.replaceAll(/\s*\([^)]*\)\s*/g, ''); //remove '(qualquer coisa)' da string
+        conteudo = substituir_caracteres(conteudo);
+
+        let valores_campo = Array.from(iframe.contentDocument.documentElement.
+            querySelectorAll(`td:nth-child(${+i+1})`)).
+            map(x=>x.textContent);
+
+        objeto[`${nome}-${conteudo}`] = valores_campo;
+    }
+    console.log(objeto);
+    return objeto
+}
 
 function calcula_vazao() {
     let peso = input_peso.value;
@@ -63,18 +121,21 @@ function calcula_velocidade_perda(){
     let diametro = input_dn_interno.value;
     let comprimento = input_comprimento.value;
     
-    if(vazao>0 && diametro>0){
+    if(vazao>=0 && diametro>=0){
         vazao /= 3600;
         diametro /= 1000;
 
-        let velocidade = (4*vazao)/(Math.PI*diametro**2)
+        let velocidade = (4*vazao)/(Math.PI*diametro**2);
         let perda = 0.000859*(vazao**(1.75))/(diametro**4.75);
 
         input_velocidade.value = velocidade.toFixed(precisao);
         input_perda.value = perda.toFixed(precisao+1);
 
-        if(comprimento>0){
+        if(comprimento>=0){
+            input_comprimento.classList.remove('text-danger');
             input_perda_total.value = (comprimento*perda).toFixed(precisao);
+        }else{
+            input_comprimento.classList.add('text-danger');
         }
     }
 }
@@ -85,21 +146,12 @@ function preencher_id_dn(){
     calcula_velocidade_perda();
 }
 
-function obter_materiais(){
-    const iframe = document.querySelector(`#${id_tabela_tubo}`);
-    const coluna_materiais = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(1)');
-    let valores_materiais = [];
-    coluna_materiais.forEach(celula => valores_materiais.push(celula.textContent));
-    const materiais = Array.from(new Set(valores_materiais));
-    return materiais
-}
-
 function preencher_materiais(){
-    const materiais = obter_materiais();
+    const materiais = Array.from(new Set(tabela_tubo['tubo-material']));
     let i = 1;
 
-    for (material of materiais){
-        opcao = document.createElement('option');
+    for (let material of materiais){
+        let opcao = document.createElement('option');
         opcao.setAttribute('value', i);
         i++;
         opcao.innerHTML = material;
@@ -113,24 +165,20 @@ function preencher_materiais(){
 }
 
 function obter_diametros(material) {
-    const iframe = document.querySelector(`#${id_tabela_tubo}`);
+    const iframe = document.querySelector(`#${id_iframe_tubo}`);
 
-    const coluna_materiais = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(1)');
-    const coluna_dn = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(2)');
-    const coluna_dn_interno = iframe.contentDocument.documentElement.querySelectorAll('#tubos td:nth-child(5)');
+    const coluna_materiais = tabela_tubo['tubo-material'];
+    const coluna_dn = tabela_tubo['tubo-dn-comercial'];
+    const coluna_dn_interno = tabela_tubo['tubo-dn-interno'];
 
     Tubo.Dn = [];
     Tubo.DnInterno = [];
     Tubo.Id_Dn = 0;
 
     for(let i in coluna_materiais){
-        valor_material = coluna_materiais[i].textContent;
-        
-        if(valor_material === material) {
-            valor_dn = coluna_dn[i].textContent;
-            valor_dn_interno = coluna_dn_interno[i].textContent;
-            Tubo.Dn.push(valor_dn);
-            Tubo.DnInterno.push(valor_dn_interno);
+        if(coluna_materiais[i] === material) {
+            Tubo.Dn.push(coluna_dn[i]);
+            Tubo.DnInterno.push(coluna_dn_interno[i]);
         }
     }
 }
@@ -145,7 +193,7 @@ function preencher_diametros(){
     let diametros = Tubo.Dn;
 
     for (let i = 0; i < diametros.length; i++){
-        opcao = document.createElement('option');
+        let opcao = document.createElement('option');
         opcao.setAttribute('value', i);
         opcao.innerHTML = diametros[i];
         seletor_diametro.appendChild(opcao);
