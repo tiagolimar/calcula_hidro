@@ -5,6 +5,8 @@ const id_iframe_peca = 'tabela-pecas';
 
 const seletor_material = document.querySelector('#material');
 const seletor_diametro = document.querySelector('#diametro');
+const seletor_material_peca = document.querySelector('#material-peca');
+const seletor_diametro_peca = document.querySelector('#diametro-peca');
 
 const input_dn_interno = document.querySelector('#dn-int');
 const input_vazao = document.querySelector('#vazao');
@@ -148,6 +150,7 @@ function preencher_id_dn(){
 
 function preencher_materiais(){
     const materiais = Array.from(new Set(tabela_tubo['tubo-material']));
+    const materiais_peca = Array.from(new Set(tabela_peca['peca-material']));
     let i = 1;
 
     for (let material of materiais){
@@ -162,6 +165,19 @@ function preencher_materiais(){
         seletor_material.options[0].selectedIndex = 0;
     }
     preencher_diametros();
+
+    for (let material of materiais_peca){
+        let opcao = document.createElement('option');
+        opcao.setAttribute('value', i);
+        i++;
+        opcao.innerHTML = material;
+        seletor_material_peca.appendChild(opcao);
+    }
+
+    if (seletor_diametro.options.length < 1){
+        seletor_material_peca.options[0].selectedIndex = 0;
+    }
+    preencher_pecas();
 }
 
 function obter_diametros(material) {
@@ -201,4 +217,8 @@ function preencher_diametros(){
 
     input_dn_interno.value = Tubo.DnInterno[Tubo.Id_Dn].replace(',','.');
     calcula_velocidade_perda();
+}
+
+function preencher_pecas(){
+    
 }

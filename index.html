@@ -75,14 +75,14 @@
     <iframe src="data/conexoes.html" id="tabela-pecas"></iframe>
     <div class="card border-primary geral m-4">
       <div class="card-header">
-        <h3 class="card-title">Dimensionamento de Tubulações de Água Fria</h3>
+        <h3 class="card-title">Dimensionamento de Conexões</h3>
       </div>
       <div class="card-body">
         <div class="row column-gap-2 m-1">
           <div class="col col3">
             <div class="row row1 overflow-hidden">
-              <label for="material">Material:</label>
-              <select id="material" onchange="preencher_diametros()"  class="form-select">
+              <label for="material-peca">Material:</label>
+              <select id="material-peca" onchange="preencher_diametros()"  class="form-select">
               </select>
             </div>
             <div class="row row2 overflow-hidden">
@@ -92,8 +92,8 @@
           </div>
           <div class="col col5">
             <div class="row row1 overflow-hidden">
-              <label for="diametro">DN (mm)</label>
-              <select id="diametro" onchange="preencher_id_dn()" class="form-select">
+              <label for="diametro-peca">DN (mm)</label>
+              <select id="diametro-peca" onchange="preencher_id_dn()" class="form-select">
                 <option value=0></option>
               </select>
             </div>
