@@ -86,7 +86,6 @@ function iframe_para_objeto(id,nome){
 
         objeto[`${nome}-${conteudo}`] = valores_campo;
     }
-    console.log(objeto);
     return objeto
 }
 
@@ -221,4 +220,12 @@ function preencher_diametros(){
 
 function preencher_pecas(){
     
+}
+
+function ocultar_tabelas(){
+    if (referencia.style.display == 'flex'){
+        referencia.style.display = 'none';
+    }else{
+        referencia.style.display = 'flex';
+    }
 }
