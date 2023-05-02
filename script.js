@@ -23,41 +23,19 @@ const precisao = 3;
 let tabela_tubo = {};
 let tabela_peca = {};
 
-const Tubo = {
-    Id_Dn: 0,
-    Dn: [],
-    DnInterno: [],
+const Tubo = {Id_Dn: 0, Dn: [], DnInterno: []
 };
 
-const Peca = {
-    Nomes: [],
-    Id_Dn: 0,
-    Dn: []
+const Peca = {Nomes: [], Id_Dn: 0, Dn: []
 };
 
 const caracteres = {
-    'á': 'a',
-    'à': 'a',
-    'â': 'a',
-    'ã': 'a',
-    'é': 'e',
-    'è': 'e',
-    'ê': 'e',
-    'í': 'i',
-    'ì': 'i',
-    'î': 'i',
-    'ó': 'o',
-    'ò': 'o',
-    'ô': 'o',
-    'õ': 'o',
-    'ú': 'u',
-    'ù': 'u',
-    'û': 'u',
-    'ç': 'c',
-    '.':'',
-    ' ':'-',
-    '\\':'-'
-  };
+    'á': 'a','à': 'a','â': 'a','ã': 'a',
+    'é': 'e','è': 'e','ê': 'e','í': 'i',
+    'ì': 'i','î': 'i','ó': 'o','ò': 'o',
+    'ô': 'o','õ': 'o','ú': 'u','ù': 'u',
+    'û': 'u','ç': 'c','.':'',' ':'-','\\':'-'
+};
   
 function substituir_caracteres(str) {
     let new_str = '';
