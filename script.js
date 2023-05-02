@@ -7,6 +7,7 @@ const seletor_material = document.querySelector('#material');
 const seletor_diametro = document.querySelector('#diametro');
 const seletor_material_peca = document.querySelector('#material-peca');
 const seletor_diametro_peca = document.querySelector('#diametro-peca');
+const seletor_nome_peca = document.querySelector('#nome-peca');
 
 const input_dn_interno = document.querySelector('#dn-int');
 const input_vazao = document.querySelector('#vazao');
@@ -21,6 +22,7 @@ const precisao = 3;
 
 let tabela_tubo = {};
 let tabela_peca = {};
+
 const Tubo = {
     Material: '',
     Id_Dn: 0,
@@ -31,6 +33,13 @@ const Tubo = {
     PerdaDeCargaUnitaria: 0,
     PerdaDeCargaTotal: 0,
     Comprimento: 0
+};
+
+const Peca = {
+    Material: '',
+    Nome: '',
+    Id_Dn: 0,
+    Dn: []
 };
 
 const caracteres = {
@@ -180,8 +189,6 @@ function preencher_materiais(){
 }
 
 function obter_diametros(material) {
-    const iframe = document.querySelector(`#${id_iframe_tubo}`);
-
     const coluna_materiais = tabela_tubo['tubo-material'];
     const coluna_dn = tabela_tubo['tubo-dn-comercial'];
     const coluna_dn_interno = tabela_tubo['tubo-dn-interno'];
@@ -218,8 +225,36 @@ function preencher_diametros(){
     calcula_velocidade_perda();
 }
 
-function preencher_pecas(){
+function obter_tipo_peca(material) {
+    const coluna_materiais = tabela_peca['peca-material'];
+    const coluna_nome_peca = tabela_peca['peca-nome-da-peca'];
+    const coluna_dn = tabela_peca['peca-dn-comercial'];
+
+    Peca.Dn = [];
+    Peca.Id_Dn = 0;
+
+    for(let i in coluna_materiais){
+        if(coluna_materiais[i] === material) {
+            Peca.Dn.push(coluna_dn[i]);
+        }
+    }
+}
+
+function preencher_tipo_peca(){
+    while(seletor_diametro_peca.firstChild){
+        seletor_diametro_peca.removeChild(seletor_diametro_peca.firstChild);
+    }
     
+    let material = seletor_material_peca.options[seletor_material_peca.selectedIndex].innerHTML;
+    obter_tipo_peca(material);
+    let diametros = Peca.Dn;
+
+    for (let i = 0; i < diametros.length; i++){
+        let opcao = document.createElement('option');
+        opcao.setAttribute('value', i);
+        opcao.innerHTML = diametros[i];
+        seletor_diametro_peca.appendChild(opcao);
+    }
 }
 
 function ocultar_tabelas(){

@@ -37,8 +37,6 @@ tr:nth-child(even){
 }
 
 .tabelas-referencias{
-    transition-duration: 200ms;
-    border: 1px solid red;
     width: 98%;
     display: none;
     flex-direction: column;
@@ -61,9 +59,16 @@ iframe{
 }
 
 .colapso{
+    border-radius: 5px;
     text-align: center;
     background-color: #c1c1c1;
     width: var(--largura);
+}
+
+.colapso:hover{
+    cursor: pointer;
+    background-color: #7a7a7a;
+    color: #dedede;
 }
 
 .geral{
