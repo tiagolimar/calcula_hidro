@@ -24,20 +24,13 @@ let tabela_tubo = {};
 let tabela_peca = {};
 
 const Tubo = {
-    Material: '',
     Id_Dn: 0,
     Dn: [],
     DnInterno: [],
-    Vazao: 0,
-    TipoDePerda: 0,
-    PerdaDeCargaUnitaria: 0,
-    PerdaDeCargaTotal: 0,
-    Comprimento: 0
 };
 
 const Peca = {
-    Material: '',
-    Nome: '',
+    Nomes: [],
     Id_Dn: 0,
     Dn: []
 };
@@ -76,6 +69,7 @@ window.addEventListener('load', function() {
     tabela_tubo = iframe_para_objeto(id_iframe_tubo,'tubo');
     tabela_peca = iframe_para_objeto(id_iframe_peca,'peca');
     preencher_materiais();
+    preencher_nome_peca();
 });
 
 function iframe_para_objeto(id,nome){
@@ -182,10 +176,9 @@ function preencher_materiais(){
         seletor_material_peca.appendChild(opcao);
     }
 
-    if (seletor_diametro.options.length < 1){
+    if (seletor_nome_peca.options.length < 1){
         seletor_material_peca.options[0].selectedIndex = 0;
     }
-    preencher_pecas();
 }
 
 function obter_diametros(material) {
@@ -225,36 +218,54 @@ function preencher_diametros(){
     calcula_velocidade_perda();
 }
 
-function obter_tipo_peca(material) {
-    const coluna_materiais = tabela_peca['peca-material'];
-    const coluna_nome_peca = tabela_peca['peca-nome-da-peca'];
-    const coluna_dn = tabela_peca['peca-dn-comercial'];
+function preencher_nome_peca(){
+    while(seletor_nome_peca.firstChild){
+        seletor_nome_peca.removeChild(seletor_nome_peca.firstChild);
+    }
 
-    Peca.Dn = [];
-    Peca.Id_Dn = 0;
-
-    for(let i in coluna_materiais){
-        if(coluna_materiais[i] === material) {
-            Peca.Dn.push(coluna_dn[i]);
+    Peca.Nomes = [];
+    let material = seletor_material_peca.options[seletor_material_peca.selectedIndex].innerHTML;
+ 
+    for(let i in tabela_peca['peca-material']){
+        if(tabela_peca['peca-material'][i] === material) {
+            Peca.Nomes.push(tabela_peca['peca-nome-da-peca'][i]);
         }
+    }
+
+    Peca.Nomes = Array.from(new Set(Peca.Nomes));
+
+    let nomes = Peca.Nomes;
+
+    for (let i in nomes){
+        let opcao = document.createElement('option');
+        opcao.setAttribute('value', +i);
+        opcao.innerHTML = nomes[+i];
+        seletor_nome_peca.appendChild(opcao);
     }
 }
 
-function preencher_tipo_peca(){
-    while(seletor_diametro_peca.firstChild){
-        seletor_diametro_peca.removeChild(seletor_diametro_peca.firstChild);
-    }
-    
-    let material = seletor_material_peca.options[seletor_material_peca.selectedIndex].innerHTML;
-    obter_tipo_peca(material);
-    let diametros = Peca.Dn;
+function preencher_diametro_peca(){
+    // while(seletor_diametro_peca.firstChild){
+    //     seletor_diametro_peca.removeChild(seletor_diametro_peca.firstChild);
+    // }
 
-    for (let i = 0; i < diametros.length; i++){
-        let opcao = document.createElement('option');
-        opcao.setAttribute('value', i);
-        opcao.innerHTML = diametros[i];
-        seletor_diametro_peca.appendChild(opcao);
-    }
+    // Peca.DN = [];
+    // let material = seletor_material_peca.options[seletor_material_peca.selectedIndex].innerHTML;
+ 
+    // for(let i in tabela_peca['peca-material']){
+    //     if(tabela_peca['peca-material'][i] === material) {
+    //         Peca.DN.push(tabela_peca['peca-nome-da-peca'][i]);
+    //     }
+    // }
+
+    // let diametros = Peca.DN;
+
+    // for (let i in diametros){
+    //     let opcao = document.createElement('option');
+    //     opcao.setAttribute('value', i);
+    //     opcao.innerHTML = diametros[i];
+    //     seletor_nome_peca.appendChild(opcao);
+    // }
 }
 
 function ocultar_tabelas(){
