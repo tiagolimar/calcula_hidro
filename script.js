@@ -17,6 +17,7 @@ const input_velocidade = document.querySelector('#velocidade');
 const input_perda = document.querySelector('#perda');
 const input_perda_total = document.querySelector('#perda-total');
 const input_comprimento = document.querySelector('#comprimento');
+const input_comprimento_peca = document.querySelector('#comprimento-peca');
 
 const precisao = 3;
 
@@ -26,7 +27,7 @@ let tabela_peca = {};
 const Tubo = {Id_Dn: 0, Dn: [], DnInterno: []
 };
 
-const Peca = {Nomes: [], Id_Dn: 0, Dn: []
+const Peca = {Nomes: [], Id_Dn: 0, Dn: [], Comprimento: {}
 };
 
 const caracteres = {
@@ -220,30 +221,44 @@ function preencher_nome_peca(){
         opcao.innerHTML = nomes[+i];
         seletor_nome_peca.appendChild(opcao);
     }
+
+    preencher_diametro_peca();
 }
 
 function preencher_diametro_peca(){
-    // while(seletor_diametro_peca.firstChild){
-    //     seletor_diametro_peca.removeChild(seletor_diametro_peca.firstChild);
-    // }
+    while(seletor_diametro_peca.firstChild){
+        seletor_diametro_peca.removeChild(seletor_diametro_peca.firstChild);
+    }
 
-    // Peca.DN = [];
-    // let material = seletor_material_peca.options[seletor_material_peca.selectedIndex].innerHTML;
+    Peca.DN = [];
+    let nome = seletor_nome_peca.options[seletor_nome_peca.selectedIndex].innerHTML;
+    let material = seletor_material_peca.options[seletor_material_peca.selectedIndex].innerHTML;
  
-    // for(let i in tabela_peca['peca-material']){
-    //     if(tabela_peca['peca-material'][i] === material) {
-    //         Peca.DN.push(tabela_peca['peca-nome-da-peca'][i]);
-    //     }
-    // }
+    for(let i in tabela_peca['peca-material']){
+        if(tabela_peca['peca-material'][i] === material) {
+            if(tabela_peca['peca-nome-da-peca'][i] === nome){
+                let dn = tabela_peca['peca-dn-comercial'][i];
+                Peca.DN.push(dn);
+                Peca.Comprimento[dn] = tabela_peca['peca-comprimento-equivalente'][i];
+            }
+        }
+    }
+    
+    let diametros = Peca.DN;
+    
+    for (let i in diametros){
+        let opcao = document.createElement('option');
+        opcao.setAttribute('value', i);
+        opcao.innerHTML = diametros[i];
+        seletor_diametro_peca.appendChild(opcao);
+    }
 
-    // let diametros = Peca.DN;
+    preencher_comprimento_peca();
+}
 
-    // for (let i in diametros){
-    //     let opcao = document.createElement('option');
-    //     opcao.setAttribute('value', i);
-    //     opcao.innerHTML = diametros[i];
-    //     seletor_nome_peca.appendChild(opcao);
-    // }
+function preencher_comprimento_peca(){
+    let dn = seletor_diametro_peca.options[seletor_diametro_peca.selectedIndex].innerHTML;
+    input_comprimento_peca.value = Peca.Comprimento[dn].replace(',','.');
 }
 
 function ocultar_tabelas(){
