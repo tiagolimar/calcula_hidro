@@ -1,0 +1,14 @@
+Aparelho sanitário	Ponto de consumo	Vazão unitária (L/s)
+Bacia sanitária (caixa de descarga)	Caixa de descarga	0,96
+Bacia sanitária (válvula de descarga)	Válvula de descarga	1,70
+Banheira	Misturador (água fria)	0,90
+Bidê	Misturador (água fria)	0,40
+Chuveiro	Misturador (água fria)	0,20
+Ducha	Misturador (água fria)	0,20
+Lavatório	Torneira ou misturador (água fria)	0,15
+Máquina de lavar roupas	Registro de pressão	0,30
+Máquina de lavar pratos	Registro de pressão	0,30
+Mictório com sifão integrado	Válvula de descarga	0,50
+Mictório sem sifão integrado	Caixa de descarga, registro de pressão ou válvula de descarga para mictório	0,15
+Pia	Torneira ou misturador (água fria)	0,25
+Tanque	Torneira	0,25

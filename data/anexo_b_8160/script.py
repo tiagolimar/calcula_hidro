@@ -36,14 +36,14 @@ def formatar(text):
     mudanca_no_fator_falha = 'Tabela ' in text[0]
 
     if mudanca_no_fator_falha:
-        fator_falha = text[0][-4:-1].replace(',', '.')
+        fator_falha = text[0][-4:-1]
         tempo_descarga = text[1][-6:-4]
         dados_limpos = text[4:]
     else:
         tempo_descarga = text[0][-6:-4]
         dados_limpos = text[3:]
 
-    with open('tabela geral.csv','a',encoding='utf8') as file_csv:
+    with open('8160-anexo-b.csv','a',encoding='utf8') as file_csv:
         for line in dados_limpos:
             line = line.replace('n = ','')
             line = line.strip()
