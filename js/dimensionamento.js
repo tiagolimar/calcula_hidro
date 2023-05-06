@@ -1,7 +1,6 @@
 "use strict";
 
 let tabela_geral = document.querySelector('#tabela-dimencionamento');
-
 let listaTrechos = [];
 
 let dadosTrecho = {
@@ -109,12 +108,20 @@ function incluirSubTrechoEmTrecho(tabelaPrincipal, tabelaSecundaria) {
     hospedagem.appendChild(tabelaSecundaria);
 }
 
-let tabela_trecho = criarTabelaDeTrecho(dadosTrecho,subDadosTrecho);
+function criarTrecho(){
+    let tabela_trecho = criarTabelaDeTrecho(dadosTrecho,subDadosTrecho);
+    tabela_geral.appendChild(tabela_trecho);
+    return tabela_trecho
+}
 
-let tabela_sub_trecho1 = criarTabelaDeSubTrecho(subDadosTrecho);
-let tabela_sub_trecho2 = criarTabelaDeSubTrecho(subDadosTrecho);
+function criarSubTrecho(){
+    let tabela_sub_trecho = criarTabelaDeSubTrecho(subDadosTrecho);
+    incluirSubTrechoEmTrecho(tabela_trecho, tabela_sub_trecho);
+}
 
-incluirSubTrechoEmTrecho(tabela_trecho, tabela_sub_trecho1);
-incluirSubTrechoEmTrecho(tabela_trecho, tabela_sub_trecho2);
-
-tabela_geral.appendChild(tabela_trecho);
+let tabela_trecho = criarTrecho();
+criarSubTrecho();
+criarSubTrecho();
+criarSubTrecho();
+criarSubTrecho();
+criarSubTrecho();
