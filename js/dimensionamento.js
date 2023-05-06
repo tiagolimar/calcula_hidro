@@ -1,46 +1,120 @@
 "use strict";
 
 let tabela_geral = document.querySelector('#tabela-dimencionamento');
-let cabecalho = {
-'valor1':'campo1',
-'valor2':'campo2',
-'valor3':'campo3',
-'valor4':'campo4',
-'valor5':'campo5',
-'valor6':'campo6',
-'valor7':'campo7',
-'valor8':'campo8'
+
+let listaTrechos = [];
+
+let dadosTrecho = {
+    'TRECHO':'0,001',
+    'PESO':'0,002',
+    'Q(l/s)':'0,003',
+    'V(m/s)':'0,004',
+    'DN (mm)':'0,005',
+    'DN int (mm)':'0,006',
+    'L (m)':'0,007',
+    'L eq. (m)':'0,008',
+    'L total (m)':'0,008',
+    'J (m/m)':'0,008',
+    'Δ Nível (m)':'0,008',
+    'ΔH (m)':'0,008',
+    'P. inicial (mca)':'0,008',
+    'P. final (mca)':'0,008'
 };
 
+let subDadosTrecho = {
+    'TIPO':'0,001',
+    'TRECHO':'0,001',
+    'PESO':'0,002',
+    'Q (l/s)':'0,003',
+    'DN (mm)':'0,005',
+    'DN int (mm)':'0,006',
+    'L (m)':'0,007',
+    'L eq. (m)':'0,008',
+    'L total (m)':'0,008',
+    'J (m/m)':'0,008',
+    'Δ Nível (m)':'0,008',
+    'ΔH (m)':'0,008',
+    'P. inicial (mca)':'0,008',
+    'P. final (mca)':'0,008'
+};
 
-function adicionar_trecho(){
-    let dados_principais = criar_div('row');
-    dados_principais.classList.add('border-primary');
-    for (let valor of Object.keys(cabecalho)){
-        let campo = criar_div('col');
-        let linha = criar_div('row');
-        let titulo = document.createElement('label');
-        let input = document.createElement('input');
-
-        input.classList.add('form-control');
-        input.disabled = true;
-        titulo.innerHTML = valor;
-        input.value = cabecalho[valor];
-
-        linha.appendChild(titulo);
-        linha.appendChild(input);
-        campo.appendChild(linha);
-        dados_principais.appendChild(campo);
+function criarTabelaDeTrecho(objeto,sub_objeto) {
+    let tabela = document.createElement("table");
+    
+    let linhaCabecalho = document.createElement("tr");
+    
+    for (let chave in objeto) {
+      let celulaCabecalho = document.createElement("th");
+      let textoCabecalho = document.createTextNode(chave);
+      celulaCabecalho.appendChild(textoCabecalho);
+      linhaCabecalho.appendChild(celulaCabecalho);
     }
-    tabela_geral.appendChild(dados_principais);
+    
+    tabela.appendChild(linhaCabecalho);
+    
+    let linhaConteudo = document.createElement("tr");
+    
+    for (let chave in objeto) {
+      let celulaConteudo = document.createElement("td");
+      let textoConteudo = document.createTextNode(objeto[chave]);
+      celulaConteudo.appendChild(textoConteudo);
+      linhaConteudo.appendChild(celulaConteudo);
+    }
+    
+    tabela.appendChild(linhaConteudo);
+    
+    let linhaExtra = document.createElement("tr");
+    let celulaExtra = document.createElement("td");
+    celulaExtra.colSpan = Object.keys(objeto).length;
+    celulaExtra.id = 'hospedagem_sub_trecho';
+    let contador = 0;
+    let linhaCabecalhoExtra = document.createElement("tr");
+    
+    for (let chave in sub_objeto){
+        contador++;
+        let celulaCabecalhoExtra = document.createElement("th");
+        let textoCabecalho = document.createTextNode(chave);
+        celulaCabecalhoExtra.appendChild(textoCabecalho);
+        linhaCabecalhoExtra.appendChild(celulaCabecalhoExtra);
+
+        if (contador == Object.keys(sub_objeto).length){
+            celulaExtra.appendChild(linhaCabecalhoExtra);
+        }
+    }
+
+    linhaExtra.appendChild(celulaExtra);
+    tabela.appendChild(linhaExtra);
+    
+    return tabela;
 }
 
-function criar_div(tipo){
-    let div = document.createElement('div');
-    div.classList.add(tipo);
-    return div
+function criarTabelaDeSubTrecho(objeto) {
+    let tabela = document.createElement("table");
+    let linhaConteudo = document.createElement("tr");
+    
+    for (let chave in objeto) {
+      let celulaConteudo = document.createElement("td");
+      let textoConteudo = document.createTextNode(objeto[chave]);
+      celulaConteudo.appendChild(textoConteudo);
+      linhaConteudo.appendChild(celulaConteudo);
+    }
+    
+    tabela.appendChild(linhaConteudo);
+
+    return tabela;
 }
 
-adicionar_trecho();
-adicionar_trecho();
-adicionar_trecho();
+function incluirSubTrechoEmTrecho(tabelaPrincipal, tabelaSecundaria) {
+    let hospedagem = tabelaPrincipal.querySelector('#hospedagem_sub_trecho');
+    hospedagem.appendChild(tabelaSecundaria);
+}
+
+let tabela_trecho = criarTabelaDeTrecho(dadosTrecho,subDadosTrecho);
+
+let tabela_sub_trecho1 = criarTabelaDeSubTrecho(subDadosTrecho);
+let tabela_sub_trecho2 = criarTabelaDeSubTrecho(subDadosTrecho);
+
+incluirSubTrechoEmTrecho(tabela_trecho, tabela_sub_trecho1);
+incluirSubTrechoEmTrecho(tabela_trecho, tabela_sub_trecho2);
+
+tabela_geral.appendChild(tabela_trecho);
