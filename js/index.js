@@ -19,6 +19,9 @@ const input_perda_total = document.querySelector('#perda-total');
 const input_comprimento = document.querySelector('#comprimento');
 const input_comprimento_peca = document.querySelector('#comprimento-peca');
 
+const secao_peca = document.querySelector('#secao-peca');
+const secao_dimensionamento = document.querySelector('#secao-dimensionamento');
+
 const precisao = 3;
 
 let tabela_tubo = {};
@@ -49,6 +52,8 @@ window.addEventListener('load', function() {
     tabela_peca = iframe_para_objeto(id_iframe_peca,'peca');
     preencher_materiais();
     preencher_nome_peca();
+    ocultar_secao_peca();
+    // ocultar_secao_dimensionamento();
 });
 
 function iframe_para_objeto(id,nome){
@@ -266,5 +271,21 @@ function ocultar_tabelas(){
         referencia.style.display = 'none';
     }else{
         referencia.style.display = 'flex';
+    }
+}
+
+function ocultar_secao_peca(){
+    if (secao_peca.style.display == 'block' || secao_peca.style.display == ''){
+        secao_peca.style.display = 'none';
+    }else{
+        secao_peca.style.display = 'block';
+    }
+}
+
+function ocultar_secao_dimensionamento(){
+    if (secao_dimensionamento.style.display == 'block' || secao_dimensionamento.style.display == ''){
+        secao_dimensionamento.style.display = 'none';
+    }else{
+        secao_dimensionamento.style.display = 'block';
     }
 }

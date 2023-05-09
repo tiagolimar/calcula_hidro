@@ -75,6 +75,21 @@ iframe{
     width: 80%;
 }
 
+#secao-dimensionamento td, #secao-dimensionamento th{
+    width: calc(100% / 15);
+}
+
+.tabela-trecho th{
+    background-color: #6ea8fe;
+}
+.tabela-trecho td{
+    background-color: white;
+}
+
+.hospedagem_sub_trecho th{
+    background-color: #cfe2ff;
+}
+
 @media (max-width: 1200px){
     :root{
         --largura: 70%;

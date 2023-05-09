@@ -1,6 +1,6 @@
 "use strict";
 
-let tabela_geral = document.querySelector('#tabela-dimencionamento');
+let tabela_geral = document.querySelector('#secao-dimensionamento');
 let listaTrechos = [];
 
 let dadosTrecho = {
@@ -39,7 +39,8 @@ let subDadosTrecho = {
 
 function criarTabelaDeTrecho(objeto,sub_objeto) {
     let tabela = document.createElement("table");
-    
+    tabela.classList.add("tabela-trecho");
+
     let linhaCabecalho = document.createElement("tr");
     
     for (let chave in objeto) {
@@ -65,7 +66,7 @@ function criarTabelaDeTrecho(objeto,sub_objeto) {
     let linhaExtra = document.createElement("tr");
     let celulaExtra = document.createElement("td");
     celulaExtra.colSpan = Object.keys(objeto).length;
-    celulaExtra.id = 'hospedagem_sub_trecho';
+    celulaExtra.classList.add('hospedagem_sub_trecho');
     let contador = 0;
     let linhaCabecalhoExtra = document.createElement("tr");
     
@@ -89,6 +90,8 @@ function criarTabelaDeTrecho(objeto,sub_objeto) {
 
 function criarTabelaDeSubTrecho(objeto) {
     let tabela = document.createElement("table");
+    tabela.classList.add("tabela-subtrecho");
+
     let linhaConteudo = document.createElement("tr");
     
     for (let chave in objeto) {
@@ -104,7 +107,7 @@ function criarTabelaDeSubTrecho(objeto) {
 }
 
 function incluirSubTrechoEmTrecho(tabelaPrincipal, tabelaSecundaria) {
-    let hospedagem = tabelaPrincipal.querySelector('#hospedagem_sub_trecho');
+    let hospedagem = tabelaPrincipal.querySelector('.hospedagem_sub_trecho');
     hospedagem.appendChild(tabelaSecundaria);
 }
 
@@ -114,14 +117,27 @@ function criarTrecho(){
     return tabela_trecho
 }
 
-function criarSubTrecho(){
+function criarSubTrecho(tabela){
     let tabela_sub_trecho = criarTabelaDeSubTrecho(subDadosTrecho);
-    incluirSubTrechoEmTrecho(tabela_trecho, tabela_sub_trecho);
+    incluirSubTrechoEmTrecho(tabela, tabela_sub_trecho);
 }
 
-let tabela_trecho = criarTrecho();
-criarSubTrecho();
-criarSubTrecho();
-criarSubTrecho();
-criarSubTrecho();
-criarSubTrecho();
+function incluirTrecho(){
+    let tabela_trecho = criarTrecho();
+    listaTrechos.push(tabela_trecho);
+}
+
+function incluirSubTrecho(){
+    if (listaTrechos.length==0){
+        incluirTrecho();
+    }
+    let tabela_trecho = listaTrechos[listaTrechos.length-1];
+    criarSubTrecho(tabela_trecho);
+}
+
+function removerTrecho(){
+    if (listaTrechos.length>0){
+        listaTrechos[listaTrechos.length-1].remove();
+        listaTrechos.pop();
+    }
+}
