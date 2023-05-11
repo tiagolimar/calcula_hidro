@@ -42,7 +42,8 @@ function criarTabelaDeTrecho(objeto,sub_objeto) {
     tabela.classList.add("tabela-trecho");
 
     let linhaCabecalho = document.createElement("tr");
-    
+    linhaCabecalho.onclick = minimizarSubTrecho;
+
     for (let chave in objeto) {
       let celulaCabecalho = document.createElement("th");
       let textoCabecalho = document.createTextNode(chave);
@@ -123,11 +124,13 @@ function criarSubTrecho(tabela){
 }
 
 function incluirTrecho(){
+    ocultar_secao_dimensionamento(true);
     let tabela_trecho = criarTrecho();
     listaTrechos.push(tabela_trecho);
 }
 
 function incluirSubTrecho(){
+    ocultar_secao_dimensionamento(true);
     if (listaTrechos.length==0){
         incluirTrecho();
     }
@@ -141,3 +144,29 @@ function removerTrecho(){
         listaTrechos.pop();
     }
 }
+
+function ocultar_secao_dimensionamento(forcarMostar = false){
+    if (forcarMostar){
+        secao_dimensionamento.style.display = 'block';
+    }else{
+        if (secao_dimensionamento.style.display == 'block' || secao_dimensionamento.style.display == ''){
+            secao_dimensionamento.style.display = 'none';
+        }else{
+            secao_dimensionamento.style.display = 'block';
+        }
+    }
+}
+
+function minimizarSubTrecho() {
+    event.preventDefault();
+    let Trecho = this.parentNode.getElementsByTagName('tr');
+    let subTrecho = this.parentNode.getElementsByTagName('tr')[2];
+    console.log(Trecho);
+    console.log(subTrecho);
+    // if (subTrecho.style.display=='none' || subTrecho.style.display==''){
+    //     subTrecho.style.display = 'block';
+    // }else{
+    //     subTrecho.style.display = '';
+    // }
+}
+

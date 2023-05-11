@@ -281,11 +281,3 @@ function ocultar_secao_peca(){
         secao_peca.style.display = 'block';
     }
 }
-
-function ocultar_secao_dimensionamento(){
-    if (secao_dimensionamento.style.display == 'block' || secao_dimensionamento.style.display == ''){
-        secao_dimensionamento.style.display = 'none';
-    }else{
-        secao_dimensionamento.style.display = 'block';
-    }
-}
