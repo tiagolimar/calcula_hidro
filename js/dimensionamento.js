@@ -160,13 +160,13 @@ function ocultar_secao_dimensionamento(forcarMostar = false){
 function minimizarSubTrecho() {
     event.preventDefault();
     let Trecho = this.parentNode.getElementsByTagName('tr');
-    let subTrecho = this.parentNode.getElementsByTagName('tr')[2];
+    let subTrecho = this.parentNode.getElementsByTagName('tr')[2].querySelector('td');
     console.log(Trecho);
     console.log(subTrecho);
-    // if (subTrecho.style.display=='none' || subTrecho.style.display==''){
-    //     subTrecho.style.display = 'block';
-    // }else{
-    //     subTrecho.style.display = '';
-    // }
+    if (subTrecho.style.display=='none' || subTrecho.style.display==''){
+        subTrecho.style.display = 'block';
+    }else{
+        subTrecho.style.display = '';
+    }
 }
 
