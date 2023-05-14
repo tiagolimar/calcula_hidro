@@ -281,3 +281,30 @@ function ocultar_secao_peca(){
         secao_peca.style.display = 'block';
     }
 }
+
+function CalcularExpressao(){
+    let valor = inputExpressao.value;
+    let temAlgumaLetra = /[a-zA-Z]/.test(valor);
+
+    if (!temAlgumaLetra){
+        valor = valor.replace('^','**').replace(',','.');
+
+        try{
+            valor = eval(valor).toFixed(precisao);
+        }catch(e){
+            valor = 'error';
+        }
+
+        if (valor == Infinity){
+            outputExpressao.value = 'error';
+        }else if (valor){
+            outputExpressao.value = valor;
+            outputExpressao.select();
+            document.execCommand('copy');
+        }else{
+            outputExpressao.value = 'error';
+        }
+    }else{
+        outputExpressao.value = 'invalid';
+    }
+}
