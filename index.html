@@ -42,7 +42,7 @@
     <div class="card border-primary geral m-3">
       <div class="card-header d-flex justify-content-between">
         <h3 class="card-title fs-4">Peças de Utilização</h3>
-        <button class="btn btn-primary" title="Adicionar Peso">+</button>
+        <button class="btn btn-primary" title="Adicionar Peso" onclick="adicionar_peso()">+</button>
       </div>
       <div class="card-body">
         <div class="row column-gap-2 m-1">
@@ -56,7 +56,7 @@
           <div class="col2 col-2">
             <div class="row">
               <label for="quantidade">Nº</label>
-              <input type="number" value="0" step="1" min="1" id="quantidade" class="form-control">
+              <input type="number" value="1" step="1" min="1" id="quantidade" class="form-control" oninput="calcula_peso_total()">
             </div>
           </div>
           <div class="col3 col-2">
@@ -67,8 +67,8 @@
           </div>
           <div class="col4 col-2">
             <div class="row">
-              <label for="peso-total">∑ Peso</label>
-              <input type="number" value="0.00" step="0.01" id="peso-total" class="form-control" disabled>
+              <label for="peso_total">∑ Peso</label>
+              <input type="number" value="0.00" step="0.01" id="peso_total" class="form-control" disabled>
             </div>
           </div>
         </div>

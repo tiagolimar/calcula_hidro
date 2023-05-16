@@ -32,11 +32,9 @@ let tabela_tubo = {};
 let tabela_peca = {};
 let tabela_aparelho = {};
 
-const Tubo = {Id_Dn: 0, Dn: [], DnInterno: []
-};
+const Tubo = {Id_Dn: 0, Dn: [], DnInterno: []};
 
-const Peca = {Nomes: [], Id_Dn: 0, Dn: [], Comprimento: {}
-};
+const Peca = {Nomes: [], Id_Dn: 0, Dn: [], Comprimento: {}};
 
 const caracteres = {
     'á': 'a','à': 'a','â': 'a','ã': 'a',
@@ -118,6 +116,7 @@ function preencher_materiais(){
 
     criar_opcoes(materiais_aparelho,seletor_aparelhos)
     preencher_peso()
+    calcula_peso_total()
 }
 
 function obter_diametros(material) {
@@ -225,12 +224,14 @@ function preencher_peso(){
     let aparelho = seletor_aparelhos.options[seletor_aparelhos.selectedIndex].innerHTML;
     let aparelhos = tabela_aparelho['aparelho-aparelho-sanitario'];
     let pesos = tabela_aparelho['aparelho-peso-relativo'];
-    
+
     for (let i in pesos) {
         if (aparelho == aparelhos[i]){
             input_peso_unitario.value = pesos[i].replace(',','.')
         }
     }
+
+    quantidade.value = 1;
 }
 
 function calcula_vazao() {
@@ -335,3 +336,7 @@ function calculadora(){
         outputExpressao.value = 'invalid';
     }
 }
+
+let adicionar_peso = () => peso.value = (+peso.value + +peso_total.value).toFixed(precisao);
+
+let calcula_peso_total = () => peso_total.value = (input_peso_unitario.value*quantidade.value).toFixed(precisao);
