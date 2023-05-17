@@ -315,7 +315,7 @@ function calculadora(){
     let temAlgumaLetra = /[a-zA-Z]/.test(valor);
 
     if (!temAlgumaLetra){
-        valor = valor.replace('^','**').replace(',','.');
+        valor = valor.replaceAll('^','**').replaceAll(',','.');
 
         try{
             valor = eval(valor).toFixed(precisao);
@@ -327,14 +327,27 @@ function calculadora(){
             outputExpressao.value = 'error';
         }else if (valor){
             outputExpressao.value = valor;
-            outputExpressao.select();
-            document.execCommand('copy');
         }else{
             outputExpressao.value = 'error';
         }
     }else{
         outputExpressao.value = 'invalid';
     }
+}
+
+function dragStart(event) {
+    event.dataTransfer.setData("text", event.target.value);
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    event.preventDefault();
+    let data = event.dataTransfer.getData("text");
+    event.target.value = "";
+    event.target.value = data;
 }
 
 let adicionar_peso = () => peso.value = (+peso.value + +peso_total.value).toFixed(precisao);
