@@ -2,39 +2,40 @@
 
 let tabela_geral = document.querySelector('#secao-dimensionamento');
 let listaTrechos = [];
+let num_id_trecho = 0;
 
 let dadosTrecho = {
-    'TRECHO':'0,001',
-    'PESO':'0,002',
-    'Q(l/s)':'0,003',
-    'V(m/s)':'0,004',
-    'DN (mm)':'0,005',
-    'DN int (mm)':'0,006',
-    'L (m)':'0,007',
-    'L eq. (m)':'0,008',
-    'L total (m)':'0,008',
-    'J (m/m)':'0,008',
-    'Δ Nível (m)':'0,008',
-    'ΔH (m)':'0,008',
-    'P. inicial (mca)':'0,008',
-    'P. final (mca)':'0,008'
+    'TRECHO':'0-1',
+    'PESO':'148,8',
+    'Q(l/s)':'3,660',
+    'V(m/s)':'2,407',
+    'DN (mm)':'50,0',
+    'DN int (mm)':'44,0',
+    'L (m)':'11,550',
+    'L eq. (m)':'9,50',
+    'L total (m)':'21,05',
+    'J (m/m)':'0,1299',
+    'Δ Nível (m)':'1,000',
+    'ΔH (m)':'2,734',
+    'P. inicial (mca)':'0,000',
+    'P. final (mca)':'-2,734'
 };
 
 let subDadosTrecho = {
-    'TRECHO':'0,001',
-    'TIPO':'0,001',
-    'PESO':'0,002',
-    'Q (l/s)':'0,003',
-    'DN (mm)':'0,005',
-    'DN int (mm)':'0,006',
-    'L (m)':'0,007',
-    'L eq. (m)':'0,008',
-    'L total (m)':'0,008',
-    'J (m/m)':'0,008',
-    'Δ Nível (m)':'0,008',
-    'ΔH (m)':'0,008',
-    'P. inicial (mca)':'0,008',
-    'P. final (mca)':'0,008'
+    'TRECHO':'0-1',
+    'TIPO':'TUBO',
+    'PESO':'148,8',
+    'Q (l/s)':'3,660',
+    'DN (mm)':'50,0',
+    'DN int (mm)':'44,0',
+    'L (m)':'11,550',
+    'L eq. (m)':'9,50',
+    'L total (m)':'21,05',
+    'J (m/m)':'0,1299',
+    'Δ Nível (m)':'1,000',
+    'ΔH (m)':'2,734',
+    'P. inicial (mca)':'0,000',
+    'P. final (mca)':'-2,734'
 };
 
 function criarTabelaDeTrecho(objeto,sub_objeto) {
@@ -161,6 +162,11 @@ function minimizarSubTrecho() {
     }else{
         subTrecho.style.display = '';
     }
+}
+
+function criar_nome_trecho() {
+    num_id_trecho = +num_id_trecho + 1;
+    return `{num_id_trecho-1}-{num_id_trecho}`
 }
 
 incluirSubTrecho();
