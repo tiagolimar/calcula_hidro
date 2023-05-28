@@ -12,14 +12,41 @@
 </head>
 <body>
   <div class="tabelas-referencias" id="referencia">
-    <iframe src="data/pecas.html" id="tabela-aparelhos"></iframe>
-    <h3 class="titulo-tabela">TABELA DE PEÇAS DE UTILIZAÇÃO</h3>
-    <iframe src="data/tubos.html" id="tabela-tubos"></iframe>
-    <h3 class="titulo-tabela">TABELA DE TUBOS</h3>
-    <iframe src="data/conexoes.html" id="tabela-pecas"></iframe>
-    <h4 class="titulo-tabela">TABELA DE PEÇAS</h3>
+    <iframe src="data/pecas.html" id="tabela-aparelhos" class="ref"></iframe>
+    <h3 class="ref titulo-tabela">TABELA DE PEÇAS DE UTILIZAÇÃO</h3>
+    <iframe src="data/tubos.html" id="tabela-tubos" class="ref"></iframe>
+    <h3 class="ref titulo-tabela">TABELA DE TUBOS</h3>
+    <iframe src="data/conexoes.html" id="tabela-pecas" class="ref"></iframe>
+    <h3 class="ref titulo-tabela">TABELA DE PEÇAS</h3>
   </div>
   <p class="colapso mt-2" onclick="ocultar_tabelas()">🡫🡩</p>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary col-12">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">CalculaHidro</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">NBR 5626:1998</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./nbr10844.html">NBR 10844</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">NBR 8160</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        Navbar text with an inline element
+      </span>
+    </div>
+  </div>
+</nav>
 
 <!-- SEÇÃO CALCULADORA E SELEÇÃO DE PEÇAS -->
 
@@ -186,7 +213,8 @@
     <div class="card-body" id="secao-dimensionamento"></div>
   </div>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
   <script src="./js/index.js"></script>
   <script src="./js/dimensionamento.js"></script>
 </body>

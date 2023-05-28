@@ -1,5 +1,6 @@
 :root{
     --largura: 90%;
+    --mostarReferencia: none;
 }
 
 *{
@@ -53,6 +54,10 @@ iframe{
     height: 30vh;
 }
 
+.ref{
+    display: var(--mostarReferencia);
+}
+
 #outputExpressao:hover{
     cursor: grab;
 }
@@ -63,6 +68,7 @@ iframe{
 }
 
 .colapso{
+    display: var(--mostarReferencia);
     border-radius: 5px;
     text-align: center;
     background-color: #c1c1c1;
