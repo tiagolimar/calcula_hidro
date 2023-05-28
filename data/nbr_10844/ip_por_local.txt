@@ -1,0 +1,99 @@
+Nº  LOCAL   IP (mm/h) (RETORNO 1 ANOS)  IP (mm/h) (RETORNO 5 ANOS)  IP (mm/h) (RETORNO 25 ANOS)
+1	Alegrete/RS	174	238	313	(17)
+2	Alto Itatiaia/RJ	124	164	240
+3	Alto Tapaj ós/PA	168	229	267	(21)
+4	Alto Teresópolis/RJ	114	137	(3)	NA
+5	Aracaju/SE	116	122	126
+6	Avaré/SP	115	144	170
+7	Bagé/RS	126	204	234	(10)
+8	Barbacena/MG	156	222	265	(12)
+9	Barra do Corda/MA	120	128	152	(20)
+10	Bauru/SP	110	120	148	(9)
+11	Belém/PA	138	157	185	(20)
+12	Belo Horizonte/MG	132	227	230	(12)
+13	Blumenau/SC	120	125	152	(15)
+14	Bonsucesso/MG	143	196	NA
+15	Cabo Frio/RJ	113	146	218
+16	Campos/RJ	132	206	240
+17	Campos do Jordão/SP	122	144	164	(9)
+18	Catal ão/GO	132	174	198	(22)
+19	Caxambu/MG	106	137	(3)	NA
+20	Caxias do Sul/RS	120	127	218
+21	Corumbá/MT	120	131	161	(9)
+22	Cruz Alta/RS	204	246	347	(14)
+23	Cuiab á/MT	144	190	230	(12)
+24	Curitiba/PR	132	204	228
+25	Encruzilhada/RS	106	126	158	(17)
+26	Fernando de Noronha/FN	110	120	140	(6)
+27	Florianópolis/SC	114	120	144
+28	Formosa/GO	136	176	217	(20)
+29	Fortaleza/CE	120	156	180	(21)
+30	Goi ânia/GO	120	178	192	(17)
+31	Guaramiranga/CE	114	126	152	(19)
+32	Iraí/RS	120	198	228	(16)
+33	Jacarezinho/PR	115	122	146	(11)
+34	João Pessoa/PB Pessoa/PB	115	140	163	(23)
+35	Juaretê/AM	192	240	288	(10)
+36	km 47-Rodovia Presidente Dutra/RJ	122	164	174	(14)
+37	Lins/SP 96	122	137	(13)
+38	Maceió/AL	102	122	174
+39	Manaus/AM	138	180	198
+40	Natal/RN	113	120	143	(19)
+41	Nazaré/PE	118	134	155	(19)
+42	Niterói/RJ	130	183	250
+43	Nova Friburgo/RJ	120	124	156
+44	Olinda/PE	115	167	173	(20)
+45	Ouro Preto/MG	120	211	NA
+46	Paracatu/MG	122	233	NA
+47	Paranagu á/PR	127	186	191	(23)
+48	Paratins/AM	130	200	205	(13)
+49	Passa Quatro/MG	118	180	192	(10)
+50	Passo Fundo/RS	110	125	180
+51	Petrópolis/RJ	120	126	156
+52	Pinheiral/RJ	142	214	244
+53	Piracicaba/SP	119	122	151	(10)
+54	Ponta Grossa/PR	120	126	148
+55	Porto Alegre/RS	118	146	167	(21)
+56	Porto Velho/RO	130	167	184	(10)
+57	Quixeramobim/CE	115	121	126
+58	Resende/RJ	130	203	264
+59	Rio Branco/AC	126	139	(2)	NA
+60	Rio de Janeiro/RJ (Bangu)	122	156	174	(20)
+61	Rio de Janeiro/RJ (Ipanema)	119	125	160	(15)
+62	Rio de Janeiro/RJ (Jacarepaguá)	120	142	152	(6)
+63	Rio de Janeiro/RJ (Jardim Botânico)	122	167	227
+64	Rio de Janeiro/RJ (Praça XV)	120	174	204	(14)
+65	Rio de Janeiro/RJ (Praça Saenz Peña)	125	139	167	(18)
+66	Rio de Janeiro/RJ (Santa Cruz)	121	132	172	(20)
+67	Rio Grande/RS	121	204	222	(20)
+68	Salvador/BA	108	122	145	(24)
+69	Santa Maria/RS	114	122	145	(16)
+70	Santa Maria Madalena/RJ	120	126	152	(7)
+71	Santa Vitória do Palmar/RS	120	126	152	(18)
+72	Santos/SP	136	198	240
+73	Santos-Itapema/SP	120	174	204	(21)
+74	São Carlos/SP	120	178	161	(10)
+75	São Francisco do Sul/SC	118	132	167	(18)
+76	São Gonçalo/PB	120	124	152	(15)
+77	São Luiz/MA	120	126	152	(21)
+78	São Luiz Gonzaga/RS	158	209	253	(21)
+79	São Paulo/SP (Congonhas)	122	132	NA
+80	São Paulo/SP (Mirante Santana)	122	172	191	(7)
+81	São Simão/SP	116	148	175
+82	Sena Madureira/AC	120	160	170	(7)
+83	Sete Lagoas/MG	122	182	281	(19)
+84	Soure/PA	149	162	212	(18)
+85	Taperinha/PA	149	202	241
+86	Taubat é/SP	122	172	208	(6)
+87	Teófilo Otoni/MG	108	121	154	(6)
+88	Teresina/PI	154	240	262	(23)
+89	Teresópolis/RJ	115	149	176
+90	Tupi/SP	122	154	NA
+91	Turiaçu/MG	126	162	230
+92	Uaupés/AM	144	204	230	(17)
+93	Ubatuba/SP	122	149	184	(7)
+94	Uruguaiana/RS	120	142	161	(17)
+95	Vassouras/RJ	125	179	222
+96	Viamão/RS	114	126	152	(15)
+97	Vitória/ES	102	156	210
+98	Volta Redonda/RJ	156	216	265	(13)
