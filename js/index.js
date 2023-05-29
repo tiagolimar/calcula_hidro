@@ -22,9 +22,9 @@ const input_perda_total = document.querySelector('#perda-total');
 const input_comprimento = document.querySelector('#comprimento');
 const input_comprimento_peca = document.querySelector('#comprimento-peca');
 
-const secao_peca = document.querySelector('#secao-peca');
+const secao_peca = document.querySelector('#secao_peca');
 const secao_dimensionamento = document.querySelector('#secao-dimensionamento');
-const secao_tubo = document.querySelector('#secao-tubo');
+const secao_tubo = document.querySelector('#secao_tubo');
 
 const precisao = 3;
 
@@ -36,49 +36,13 @@ const Tubo = {Id_Dn: 0, Dn: [], DnInterno: []};
 
 const Peca = {Nomes: [], Id_Dn: 0, Dn: [], Comprimento: {}};
 
-const caracteres = {
-    'á': 'a','à': 'a','â': 'a','ã': 'a',
-    'é': 'e','è': 'e','ê': 'e','í': 'i',
-    'ì': 'i','î': 'i','ó': 'o','ò': 'o',
-    'ô': 'o','õ': 'o','ú': 'u','ù': 'u',
-    'û': 'u','ç': 'c','.':'',' ':'-','\\':'-'
-};
-  
-function substituir_caracteres(str) {
-    let new_str = '';
-    for (let char of str) new_str += caracteres[char] || char;
-    return new_str;
-}
-
 window.addEventListener('load', function() {
     tabela_tubo = iframe_para_objeto(id_iframe_tubo,'tubo');
     tabela_peca = iframe_para_objeto(id_iframe_peca,'peca');
     tabela_aparelho = iframe_para_objeto(id_iframe_aparelho,'aparelho');
     preencher_materiais();
     preencher_nome_peca();
-    // ocultar_secao_peca();
-    // ocultar_secao_dimensionamento();
 });
-
-function iframe_para_objeto(id,nome){
-    const iframe = document.querySelector(`#${id}`);
-    const celulas_cabecalho = Array.from(iframe.contentDocument.documentElement.querySelectorAll('th'));
-    let objeto = {}
-
-    for(let i in celulas_cabecalho){
-        let conteudo = celulas_cabecalho[i].textContent;
-        conteudo = conteudo.toLowerCase();
-        conteudo = conteudo.replaceAll(/\s*\([^)]*\)\s*/g, ''); //remove '(qualquer coisa)' da string
-        conteudo = substituir_caracteres(conteudo);
-
-        let valores_campo = Array.from(iframe.contentDocument.documentElement.
-            querySelectorAll(`td:nth-child(${+i+1})`)).
-            map(x=>x.textContent);
-
-        objeto[`${nome}-${conteudo}`] = valores_campo;
-    }
-    return objeto
-}
 
 function preencher_id_dn(){
     Tubo.Id_Dn = event.target.options[event.target.selectedIndex].value;
@@ -283,30 +247,6 @@ function calcula_velocidade_perda(){
         }else{
             input_comprimento.classList.add('text-danger');
         }
-    }
-}
-
-function ocultar_tabelas(){
-    if (referencia.style.display == 'flex'){
-        referencia.style.display = 'none';
-    }else{
-        referencia.style.display = 'flex';
-    }
-}
-
-function ocultar_secao_peca(){
-    if (secao_peca.style.display == 'block' || secao_peca.style.display == ''){
-        secao_peca.style.display = 'none';
-    }else{
-        secao_peca.style.display = 'block';
-    }
-}
-
-function ocultar_secao_tubo(){
-    if (secao_tubo.style.display == 'block' || secao_tubo.style.display == ''){
-        secao_tubo.style.display = 'none';
-    }else{
-        secao_tubo.style.display = 'block';
     }
 }
 
