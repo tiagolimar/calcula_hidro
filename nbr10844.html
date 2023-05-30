@@ -33,13 +33,13 @@
                 <div class="col1 col overflow-hidden">
                     <div class="row me-1">
                         <label for="ip_local">Local</label>
-                        <select id="ip_local" onchange="" class="form-select">
+                        <select id="ip_local" onchange="preencher_tempo_retorno()" class="form-select">
                             <option value="0">Seleção Manual</option>
                         </select>
                     </div>
                     <div class="row me-1 mt-1">
                         <label for="ip_tempo">T.R. (anos)</label>
-                        <select id="ip_tempo" onchange="" class="form-select">
+                        <select id="ip_tempo" onchange="preencher_ip()" class="form-select">
                             <option value="0">Seleção Manual</option>
                         </select>
                     </div>
@@ -47,8 +47,7 @@
                 <div class="col2 col overflow-hidden">
                     <div class="row me-1">
                         <label for="ip">IP (mm/h)</label>
-                        <input id="ip" type="number" step="0.001" oninput="" value="0.000" class="form-control"
-                            disabled>
+                        <input id="ip" type="number" step="0.001" oninput="" value="0.000" class="form-control">
                     </div>
                     <div class="row me-1 mt-1">
                         <label for="ip_area">Área (m²)</label>
@@ -140,6 +139,6 @@
         integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
         crossorigin="anonymous"></script>
     <script src="./js/nbr10844.js"></script>
-    <script src="./js/geral.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 </html>
