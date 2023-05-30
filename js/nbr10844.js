@@ -11,9 +11,6 @@ window.addEventListener('load', function() {
     preencher_locais();
 });
 
-
-
-
 let preencher_locais = ()=>{
     let locais = Array.from(new Set(tabela_ip['ip-local']))
     criar_opcoes(locais,ip_local);
@@ -22,6 +19,7 @@ let preencher_locais = ()=>{
 
 let preencher_tempo_retorno = ()=>{
     limpar_opcoes(ip_tempo)
+    check_selecao_manual_ip()
     let local = ip_local.options[ip_local.selectedIndex].innerHTML
 
     if(local!='Seleção Manual'){
@@ -50,5 +48,10 @@ let preencher_ip = ()=>{
 
 let check_selecao_manual_ip = ()=>{
     let local = ip_local.options[ip_local.selectedIndex].innerHTML
-    ip.disabled = local == 'Seleção Manual'? true : false
+    ip.disabled = local == 'Seleção Manual'? false : true
+    ip_tempo.disabled = local == 'Seleção Manual'? true : false
+}
+
+let calcula_vazao = ()=>{
+    
 }

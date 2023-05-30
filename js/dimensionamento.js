@@ -38,7 +38,7 @@ let subDadosTrecho = {
     'P. final (mca)':'-2,734'
 };
 
-function criarTabelaDeTrecho(objeto,sub_objeto) {
+function criarTabelaDeTrecho(objeto,sub_objeto,com_cabecalho=true) {
     let tabela = document.createElement("table");
     tabela.classList.add("tabela-trecho");
 
