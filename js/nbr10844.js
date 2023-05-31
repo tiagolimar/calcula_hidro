@@ -56,9 +56,10 @@ let preencher_vazao_unitario = () => {
         if ((tabela_vazao['vazao-dn'][i] == dn) && (tabela_vazao['vazao-inclinacao'][i] == inclinacao) && (tabela_vazao['vazao-n'][i] == n)) {
             let vazao = tabela_vazao['vazao-vazao'][i]
             ip_vazao_un1.value = vazao
-            ip_vazao_un2.value = vazao/1000*60
+            ip_vazao_un2.value = (vazao/1000*60).toFixed(precisao)
         }
     }
+    calcula_quant_tubo_horizontal()
 }
 
 let check_selecao_manual_ip = ()=>{
@@ -73,5 +74,11 @@ let calcula_vazao = ()=>{
     let vazao_m3h = vazao_lmin/1000*60
     ip_vazao_proj1.value = vazao_lmin.toFixed(precisao)
     ip_vazao_proj2.value = vazao_m3h.toFixed(precisao)
+    calcula_quant_tubo_horizontal()
+}
+
+let calcula_quant_tubo_horizontal = ()=>{
+    let quant = ip_vazao_proj1.value/ip_vazao_un1.value
+    ip_quant_hor.value = quant.toFixed(precisao)
 }
 
