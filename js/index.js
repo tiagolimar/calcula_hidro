@@ -1,5 +1,7 @@
 "use strict";
 
+let precisao = 3
+
 let ocultar_secao = e=>{
     let card = 'secao_' + e.target.id.replace('ocultar_','');
     card = document.getElementById(card);
