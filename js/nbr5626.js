@@ -26,8 +26,6 @@ const secao_peca = document.querySelector('#secao_peca');
 const secao_dimensionamento = document.querySelector('#secao-dimensionamento');
 const secao_tubo = document.querySelector('#secao_tubo');
 
-const precisao = 3;
-
 let tabela_tubo = {};
 let tabela_peca = {};
 let tabela_aparelho = {};
