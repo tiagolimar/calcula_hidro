@@ -13,6 +13,11 @@ let ocultar_secao = e=>{
     }
 }
 
+let adicionar_secao = e=>{
+    let card = 'secao_' + e.target.id.replace('adicionar_','');
+    card = document.getElementById(card);
+}
+
 function substituir_caracteres(str) {
     const caracteres = {
         'á': 'a','à': 'a','â': 'a','ã': 'a',
