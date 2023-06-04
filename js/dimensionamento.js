@@ -6,19 +6,19 @@ let num_id_trecho = 0;
 
 let dadosTrecho = {
     'TRECHO':'0-1',
-    'PESO':'148,8',
-    'Q(l/s)':'3,660',
-    'V(m/s)':'2,407',
-    'DN (mm)':'50,0',
-    'DN int (mm)':'44,0',
-    'L (m)':'11,550',
-    'L eq. (m)':'9,50',
-    'L total (m)':'21,05',
-    'J (m/m)':'0,1299',
-    'Δ Nível (m)':'1,000',
-    'ΔH (m)':'2,734',
-    'P. inicial (mca)':'0,000',
-    'P. final (mca)':'-2,734'
+    'PESO':148.8,
+    'Q(l/s)':3.660,
+    'V(m/s)':2.407,
+    'DN (mm)':50.0,
+    'DN int (mm)':44.0,
+    'L (m)':11.550,
+    'L eq. (m)':9.50,
+    'L total (m)':21.05,
+    'J (m/m)':0.129,
+    'Δ Nível (m)':1.000,
+    'ΔH (m)':2.734,
+    'P. inicial (mca)':0.000,
+    'P. final (mca)':'2,734'
 };
 
 let subDadosTrecho = {

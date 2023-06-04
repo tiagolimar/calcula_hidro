@@ -14,8 +14,27 @@ let ocultar_secao = e=>{
 }
 
 let adicionar_secao = e=>{
+    let obj = {}
     let card = 'secao_' + e.target.id.replace('adicionar_','');
     card = document.getElementById(card);
+
+    let labels = Array.from(document.querySelectorAll('label'))
+    let input = Array.from(document.querySelectorAll('input'))
+    let select = Array.from(document.querySelectorAll('select'))
+    let campos = input.concat(select)
+
+    for (const campo of campos) {
+        let id_value = campo.id
+        for (const label of labels) {
+            let id_chave = label.htmlFor
+            if (id_chave == id_value) {
+                obj[label.innerHTML] = campo.value
+                break
+            }
+        }
+    }
+    console.log('opa');
+    objParaTabela(obj, secao_rascunho)
 }
 
 function substituir_caracteres(str) {
@@ -61,13 +80,39 @@ function criar_opcoes(lista,seletor){
     }
 }
 
-function limpar_opcoes(seletor){
-    while(seletor.firstChild){
-        seletor.removeChild(seletor.firstChild);
-    }
-}
+let limpar_opcoes = seletor => {while(seletor.firstChild) seletor.removeChild(seletor.firstChild)}
 
 function verificar_vazio(input,valor){
     if(!valor || valor < 0) input.classList.add('text-danger');
     else input.classList.remove('text-danger');
+}
+
+let objParaTabela = (obj, container) => {
+    let template_html = `
+        <table>
+            <thead>
+                <tr>
+                    <CABECALHO>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <CORPO>
+                </tr>
+            </tbody>
+        </table>`;
+
+    let headerRow = ''
+    for (const key in obj) {
+        headerRow += `<th>${key}</th>`
+    }
+    template_html = template_html.replace('<CABECALHO>', headerRow)
+
+    let dataRow = ''
+    for (const key in obj) {
+        dataRow += `<td>${obj[key]}</td>`
+    }
+    template_html = template_html.replace('<CORPO>', dataRow)
+
+    container.innerHTML += template_html
 }
