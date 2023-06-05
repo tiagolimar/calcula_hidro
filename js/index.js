@@ -17,10 +17,9 @@ let adicionar_secao = e=>{
     let obj = {}
     let card = 'secao_' + e.target.id.replace('adicionar_','');
     card = document.getElementById(card);
-
-    let labels = Array.from(document.querySelectorAll('label'))
-    let input = Array.from(document.querySelectorAll('input'))
-    let select = Array.from(document.querySelectorAll('select'))
+    let labels = Array.from(card.querySelectorAll('label'))
+    let input = Array.from(card.querySelectorAll('input'))
+    let select = Array.from(card.querySelectorAll('select'))
     let campos = input.concat(select)
 
     for (const campo of campos) {
@@ -33,7 +32,6 @@ let adicionar_secao = e=>{
             }
         }
     }
-    console.log('opa');
     objParaTabela(obj, secao_rascunho)
 }
 
@@ -89,18 +87,19 @@ function verificar_vazio(input,valor){
 
 let objParaTabela = (obj, container) => {
     let template_html = `
-        <table>
-            <thead>
-                <tr>
-                    <CABECALHO>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <CORPO>
-                </tr>
-            </tbody>
-        </table>`;
+    <table>
+        <thead>
+            <tr>
+                <CABECALHO>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <CORPO>
+            </tr>
+        </tbody>
+    </table>
+    `
 
     let headerRow = ''
     for (const key in obj) {
