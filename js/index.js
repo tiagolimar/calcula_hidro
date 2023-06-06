@@ -17,22 +17,42 @@ let adicionar_secao = e=>{
     let obj = {}
     let card = 'secao_' + e.target.id.replace('adicionar_','');
     card = document.getElementById(card);
-    let labels = Array.from(card.querySelectorAll('label'))
-    let input = Array.from(card.querySelectorAll('input'))
-    let select = Array.from(card.querySelectorAll('select'))
-    let campos = input.concat(select)
 
-    for (const campo of campos) {
-        let id_value = campo.id
-        for (const label of labels) {
-            let id_chave = label.htmlFor
-            if (id_chave == id_value) {
-                obj[label.innerHTML] = campo.value
-                break
+    const labels = Array.from(card.querySelectorAll('label'))
+    const input = Array.from(card.querySelectorAll('input'))
+    const select = Array.from(card.querySelectorAll('select'))
+    const campos = input.concat(select)
+
+    const preencher_obj = (obj)=>{
+        let escreverTabela = true
+
+        for (const campo of campos) {
+            let campoLegivel = campo.classList.contains('legivel')
+            let id_value = campo.id
+            let quebrar = false
+
+            if (campoLegivel) {
+                for (const label of labels) {
+                    let id_chave = label.htmlFor
+                    if (id_chave == id_value) {
+                        if (campo.value>0){
+                            obj[label.innerHTML] = campo.value
+                            break
+                        }else{
+                            alert(`preencha o campo ${label.innerHTML}`)
+                            escreverTabela = false
+                            quebrar = true
+                        }
+                    }
+                    if (quebrar) break
+                }
+                if (quebrar) break
             }
         }
+        return escreverTabela
     }
-    objParaTabela(obj, secao_rascunho)
+
+    if (preencher_obj(obj)) objParaTabela(obj, secao_rascunho)
 }
 
 function substituir_caracteres(str) {

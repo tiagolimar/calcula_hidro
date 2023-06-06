@@ -73,18 +73,22 @@
                 <div class="col2 col overflow-hidden">
                     <div class="row me-1">
                         <label for="ip">IP (mm/h)</label>
-                        <input id="ip" type="number" step="0.001" oninput="calcula_vazao()" value="0.000" class="form-control">
+                        <input id="ip" type="number" step="0.001" 
+                            oninput="calcula_vazao()" value="0.000" 
+                            class="form-control legivel">
                     </div>
                     <div class="row me-1 mt-1">
                         <label for="ip_area">Área (m²)</label>
-                        <input type="number" step="0.001" id="ip_area" oninput="calcula_vazao()" value="0.000" class="form-control">
+                        <input type="number" step="0.001" id="ip_area" 
+                            oninput="calcula_vazao()" value="0.000" 
+                            class="form-control legivel">
                     </div>
                 </div>
                 <div class="col4 col overflow-hidden">
                     <div class="row me-1">
                         <label for="ip_vazao_proj1">Vazão P. (l/min)</label>
                         <input type="number" step="0.001" id="ip_vazao_proj1" value="0.000"
-                            class="form-control" disabled>
+                            class="form-control legivel" disabled>
                     </div>
                     <div class="row me-1 mt-1">
                         <label for="ip_vazao_proj2">Vazão P. (m³/h)</label>
