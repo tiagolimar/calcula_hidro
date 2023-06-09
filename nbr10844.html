@@ -52,9 +52,9 @@
         <div class="card-header d-flex justify-content-between">
             <button class="btn btn-secondary" id="ocultar_area" title="Ocultar" onclick="ocultar_secao(event)">🡫🡩</button>
             <h3 class="card-title fs-4">Seleção de Área</h3>
-            <button class="btn btn-primary" id="adicionar_area" onclick="adicionar_secao(event)" title="">+</button>
+            <button class="btn btn-primary" id="adicionar_area" onclick="adicionar_secao(event,true)" title="Adicionar ao rascunho">+</button>
         </div>
-        <div class="card-body" id="secao_area">
+        <div class="card-body legivel" id="secao_area">
             <div class="row m-1">
                 <div class="col1 col overflow-hidden">
                     <div class="row me-1">
@@ -106,14 +106,14 @@
         <div class="card-header d-flex justify-content-between">
             <button class="btn btn-secondary" id="ocultar_tubo_ip" title="Ocultar" onclick="ocultar_secao(event)">🡫🡩</button>
             <h3 class="card-title fs-4">Seleção de Tubo</h3>
-            <button class="btn btn-primary" id="adicionarPeca" title="Adicionar peça">+</button>
+            <button class="btn btn-primary" id="adicionarPeca" onclick="adicionar_secao(event,true)" title="Adicionar ao rascunho">+</button>
         </div>
-        <div class="card-body" id="secao_tubo_ip">
+        <div class="card-body legivel" id="secao_tubo_ip">
             <div class="row m-1">
                 <div class="col3 col overflow-hidden">
                     <div class="row me-1">
                         <label for="ip_dn">DN (mm)</label>
-                        <select id="ip_dn" onchange="preencher_vazao_unitario()" class="form-select">
+                        <select id="ip_dn" onchange="preencher_vazao_unitario()" class="form-select legivel">
                             <option value="50">50</option>
                             <option value="75">75</option>
                             <option selected value="100">100</option>
@@ -126,7 +126,7 @@
                     </div>
                     <div class="row me-1 mt-1">
                         <label for="ip_inclinacao">I (%)</label>
-                        <select id="ip_inclinacao" onchange="preencher_vazao_unitario()" class="form-select">
+                        <select id="ip_inclinacao" onchange="preencher_vazao_unitario()" class="form-select legivel">
                             <option value="0.5">0,5</option>
                             <option selected value="1">1</option>
                             <option value="2">2</option>
@@ -150,7 +150,7 @@
                     <div class="row me-1">
                         <label for="ip_quant_hor">Q. Tubo Hor.</label>
                         <input type="number" step="0.001" id="ip_quant_hor" value="0.000"
-                            class="form-control" disabled>
+                            class="form-control legivel" disabled>
                     </div>
                     <div class="row me-1 mt-1">
                         <label for="ip_quant_ver">Q. Tubo Ver.</label>
@@ -162,13 +162,13 @@
         </div>
     </div>
 
-  <!-- SEÇÃO DE SELEÇÃO DE TUBOS -->
+  <!-- SEÇÃO DE RASCUNHO -->
 
   <div class="card border-primary geral m-2 rounded-4">
     <div class="card-header d-flex justify-content-between">
         <button class="btn btn-secondary" id="ocultar_rascunho" title="Ocultar" onclick="ocultar_secao(event)">🡫🡩</button>
         <h3 class="card-title fs-4">Rascunho</h3>
-        <button class="btn btn-primary" title="Adicionar peça" onclick="adicionar_secao()">+</button>
+        <button class="btn btn-primary" title="">+</button>
     </div>
     <div class="card-body" id="secao_rascunho">
     </div>

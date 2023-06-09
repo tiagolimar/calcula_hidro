@@ -13,15 +13,31 @@ let ocultar_secao = e=>{
     }
 }
 
-let adicionar_secao = e=>{
+let adicionar_secao = (e,adicionarSecaoComposta=false)=>{
     let obj = {}
-    let card = 'secao_' + e.target.id.replace('adicionar_','');
-    card = document.getElementById(card);
-
-    const labels = Array.from(card.querySelectorAll('label'))
-    const input = Array.from(card.querySelectorAll('input'))
-    const select = Array.from(card.querySelectorAll('select'))
-    const campos = input.concat(select)
+    let labels = []
+    let campos = []
+    if(!adicionarSecaoComposta){
+        let card = 'secao_' + e.target.id.replace('adicionar_','');
+        card = document.getElementById(card);
+        labels = Array.from(card.querySelectorAll('label'))
+        const input = Array.from(card.querySelectorAll('input'))
+        const select = Array.from(card.querySelectorAll('select'))
+        campos = input.concat(select)
+    }else{
+        let todos_os_card = document.querySelectorAll('.card-body.legivel')
+        for (const card of todos_os_card) {
+            const all_labels = Array.from(card.querySelectorAll('label'))
+            const input = Array.from(card.querySelectorAll('input'))
+            const select = Array.from(card.querySelectorAll('select'))
+            const all_campos = input.concat(select)
+            
+            
+            labels = labels? labels.concat(all_labels) : all_labels
+            campos = campos? campos.concat(all_campos) : all_campos
+            console.log(campos);
+        }
+    }
 
     const preencher_obj = (obj)=>{
         let escreverTabela = true
