@@ -69,32 +69,32 @@
         <h3 class="card-title fs-4">Peças de Utilização</h3>
         <button class="btn btn-primary" title="Adicionar Peso" onclick="adicionar_peso()">+</button>
       </div>
-      <div class="card-body">
+      <div class="card-body legivel" id="secao_aparelho">
         <div class="row column-gap-2 m-1">
           <div class="col1 col">
             <div class="row">
-              <label for="aparelhos">Peça</label>
-              <select id="aparelhos" onchange="preencher_peso()" class="form-select">
+              <label for="aparelhos" class="legivel">Peça</label>
+              <select id="aparelhos" onchange="preencher_peso()" class="form-select legivel">
               </select>
             </div>
           </div>
           <div class="col2 col-2">
             <div class="row">
-              <label for="quantidade">Nº</label>
-              <input type="number" value="1" step="1" min="1" id="quantidade" class="form-control"
+              <label for="quantidade" class="legivel">Nº</label>
+              <input type="number" value="1" step="1" min="1" id="quantidade" class="form-control legivel"
                 oninput="calcula_peso_total()">
             </div>
           </div>
           <div class="col3 col-2">
             <div class="row">
-              <label for="peso-unitario">Peso</label>
-              <input type="number" value="0.00" step="0.01" id="peso-unitario" class="form-control" disabled>
+              <label for="peso-unitario" class="legivel">Peso</label>
+              <input type="number" value="0.00" step="0.01" id="peso-unitario" class="form-control legivel" disabled>
             </div>
           </div>
           <div class="col4 col-2">
             <div class="row">
-              <label for="peso_total">∑ Peso</label>
-              <input type="number" value="0.00" step="0.01" id="peso_total" class="form-control" disabled>
+              <label for="peso_total" class="legivel">∑ Peso</label>
+              <input type="number" value="0.00" step="0.01" id="peso_total" class="form-control legivel" disabled>
             </div>
           </div>
         </div>
@@ -108,9 +108,10 @@
     <div class="card-header d-flex justify-content-between">
       <button class="btn btn-secondary" id="ocultar_tubo" title="Ocultar" onclick="ocultar_secao(event)">🡫🡩</button>
       <h3 class="card-title fs-4">Seleção de Tubo</h3>
-      <button class="btn btn-primary" id="adicionarTubo" title="Adicionar tubo">+</button>
+      <button class="btn btn-primary" id="adicionar_tubo" title="Adicionar tubo"
+        onclick="adicionar_secao(event)">+</button>
     </div>
-    <div class="card-body" id="secao_tubo">
+    <div class="card-body legivel" id="secao_tubo">
       <div class="row column-gap-2 m-1">
         <div class="col1 col">
           <div class="row row1 overflow-hidden">
@@ -125,8 +126,8 @@
         </div>
         <div class="col2 col-2">
           <div class="row row1 overflow-hidden">
-            <label for="diametro">DN (mm)</label>
-            <select id="diametro" onchange="preencher_id_dn()" class="form-select">
+            <label for="diametro" class="legivel">DN (mm)</label>
+            <select id="diametro" onchange="preencher_id_dn()" class="form-select legivel">
               <option value=0></option>
             </select>
           </div>
@@ -142,14 +143,14 @@
               ondragover="allowDrop(event)" value="0.000" class="form-control">
           </div>
           <div class="row row2 overflow-hidden">
-            <label for="velocidade">V (m/s)</label>
-            <input type="number" value="0.000" id="velocidade" class="form-control" disabled>
+            <label for="velocidade" class="legivel">V (m/s)</label>
+            <input type="number" value="0.000" id="velocidade" class="form-control legivel" disabled>
           </div>
         </div>
         <div class="col4 col">
           <div class="row row1 overflow-hidden">
-            <label for="vazao">Vazão (m³/h)</label>
-            <input type="number" step="0.001" id="vazao" oninput="calcula_peso()" value="0.000" class="form-control">
+            <label for="vazao" class="legivel">Vazão (m³/h)</label>
+            <input type="number" step="0.001" id="vazao" oninput="calcula_peso()" value="0.000" class="form-control legivel">
           </div>
           <div class="row row2 overflow-hidden">
             <label for="display-vazao">Vazão (l/s)</label>
@@ -179,28 +180,28 @@
       <h3 class="card-title fs-4">Seleção de Conexões</h3>
       <button class="btn btn-primary" id="adicionarPeca" title="Adicionar peça">+</button>
     </div>
-    <div class="card-body" id="secao_peca">
+    <div class="card-body legivel" id="secao_peca">
       <div class="row m-1">
         <div class="col1 col overflow-hidden">
-          <label for="material-peca">Material</label>
-          <select id="material-peca" onchange="preencher_nome_peca()" class="form-select"></select>
+          <label for="material-peca" class="legivel">Material</label>
+          <select id="material-peca" onchange="preencher_nome_peca()" class="form-select legivel"></select>
         </div>
         <div class="col2 col overflow-hidden">
-          <label for="nome-peca">Tipo de peça</label>
-          <select id="nome-peca" onchange="preencher_diametro_peca()" class="form-select">
+          <label for="nome-peca" class="legivel">Tipo de peça</label>
+          <select id="nome-peca" onchange="preencher_diametro_peca()" class="form-select legivel">
             <option value=0></option>
           </select>
         </div>
         <div class="col3 col overflow-hidden">
-          <label for="diametro-peca">DN (mm)</label>
-          <select id="diametro-peca" onchange="preencher_comprimento_peca()" class="form-select">
+          <label for="diametro-peca" class="legivel">DN (mm)</label>
+          <select id="diametro-peca" onchange="preencher_comprimento_peca()" class="form-select legivel">
             <option value=0></option>
           </select>
         </div>
         <div class="col4 col overflow-hidden">
-          <label for="comprimento-peca">L equivalente (m)</label>
+          <label for="comprimento-peca" class="legivel">L equivalente (m)</label>
           <input type="number" step="0.001" id="comprimento-peca" oninput="calcula_peso()" value="0.000"
-            class="form-control" disabled>
+            class="form-control legivel" disabled>
         </div>
       </div>
     </div>
@@ -223,9 +224,9 @@
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Abrir Janela Pop-up
   </button>
-  
+
   <!-- Janela pop-up -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -243,19 +244,20 @@
         </div>
       </div>
     </div>
-  </div>
-  
+  </div> -->
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
     integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
     integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
     crossorigin="anonymous"></script>
-    <script src="./js/nbr5626.js"></script>
-    <script src="./js/index.js"></script>
-    <!-- <script src="./js/dimensionamento.js"></script> -->
+  <script src="./js/nbr5626.js"></script>
+  <script src="./js/index.js"></script>
+  <!-- <script src="./js/dimensionamento.js"></script> -->
 </body>
+
 </html>

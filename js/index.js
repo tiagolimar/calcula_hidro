@@ -2,6 +2,38 @@
 
 let precisao = 3
 
+
+let criar_tabela_sessao = () => {
+    let secao_legiveis = {}
+    let template_obj = {
+        'tabela':`
+        <table>
+            <thead>
+                <tr>
+                    <CABECALHO>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        `,
+    }
+    
+    Array.from(document.querySelectorAll('.card-body.legivel')).forEach(e => {
+        let obj = template_obj
+        obj.id = e.id
+        let cabecalho = ''
+        Array.from(e.querySelectorAll('label.legivel')).forEach(label => {
+            cabecalho += `<th>${label.innerHTML}</th>`
+        })
+        obj.tabela = obj.tabela.replace('<CABECALHO>',cabecalho)
+        secao_legiveis[e.id] = obj
+    });
+    return secao_legiveis
+}
+
+let secao_legiveis = criar_tabela_sessao()
+
 let ocultar_secao = e=>{
     let card = 'secao_' + e.target.id.replace('ocultar_','');
     card = document.getElementById(card);
@@ -11,64 +43,6 @@ let ocultar_secao = e=>{
     }else{
         card.style.display = 'block';
     }
-}
-
-let adicionar_secao = (e,adicionarSecaoComposta=false)=>{
-    let obj = {}
-    let labels = []
-    let campos = []
-    if(!adicionarSecaoComposta){
-        let card = 'secao_' + e.target.id.replace('adicionar_','');
-        card = document.getElementById(card);
-        labels = Array.from(card.querySelectorAll('label'))
-        const input = Array.from(card.querySelectorAll('input'))
-        const select = Array.from(card.querySelectorAll('select'))
-        campos = input.concat(select)
-    }else{
-        let todos_os_card = document.querySelectorAll('.card-body.legivel')
-        for (const card of todos_os_card) {
-            const all_labels = Array.from(card.querySelectorAll('label'))
-            const input = Array.from(card.querySelectorAll('input'))
-            const select = Array.from(card.querySelectorAll('select'))
-            const all_campos = input.concat(select)
-            
-            
-            labels = labels? labels.concat(all_labels) : all_labels
-            campos = campos? campos.concat(all_campos) : all_campos
-            console.log(campos);
-        }
-    }
-
-    const preencher_obj = (obj)=>{
-        let escreverTabela = true
-
-        for (const campo of campos) {
-            let campoLegivel = campo.classList.contains('legivel')
-            let id_value = campo.id
-            let quebrar = false
-
-            if (campoLegivel) {
-                for (const label of labels) {
-                    let id_chave = label.htmlFor
-                    if (id_chave == id_value) {
-                        if (campo.value>0){
-                            obj[label.innerHTML] = campo.value
-                            break
-                        }else{
-                            alert(`preencha o campo ${label.innerHTML}`)
-                            escreverTabela = false
-                            quebrar = true
-                        }
-                    }
-                    if (quebrar) break
-                }
-                if (quebrar) break
-            }
-        }
-        return escreverTabela
-    }
-
-    if (preencher_obj(obj)) objParaTabela(obj, secao_rascunho)
 }
 
 function substituir_caracteres(str) {
@@ -150,4 +124,49 @@ let objParaTabela = (obj, container) => {
     template_html = template_html.replace('<CORPO>', dataRow)
 
     container.innerHTML += template_html
+}
+
+let adicionar_secao = (e)=>{
+    let card = 'secao_' + e.target.id.replace('adicionar_','');
+    card = document.getElementById(card);
+
+    const input = Array.from(card.querySelectorAll('input'))
+    const select = Array.from(card.querySelectorAll('select'))
+    let campos = input.concat(select)
+
+    let obj = secao_legiveis[card.id]
+
+
+
+    const preencher_obj = (obj)=>{
+        let escreverTabela = true
+
+        for (const campo of campos) {
+            let campoLegivel = campo.classList.contains('legivel')
+            let id_value = campo.id
+            let quebrar = false
+
+            if (campoLegivel) {
+                for (const label of labels) {
+                    let id_chave = label.htmlFor
+                    if (id_chave == id_value) {
+                        if (campo.value>0){
+                            if(!obj.cabeca.valores.length) obj.cabeca.valores.push(label.innerHTML);
+                            obj.corpo.valores.push(campo.value)
+                            break
+                        }else{
+                            alert(`preencha o campo ${label.innerHTML}`)
+                            escreverTabela = false
+                            quebrar = true
+                        }
+                    }
+                    if (quebrar) break
+                }
+                if (quebrar) break
+            }
+        }
+        return escreverTabela
+    }
+    
+    if (preencher_obj(obj)) console.log(obj); //objParaTabela(obj, secao_rascunho)
 }

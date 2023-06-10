@@ -31,7 +31,6 @@ let tabela_peca = {};
 let tabela_aparelho = {};
 
 const Tubo = {Id_Dn: 0, Dn: [], DnInterno: []};
-
 const Peca = {Nomes: [], Id_Dn: 0, Dn: [], Comprimento: {}};
 
 window.addEventListener('load', function() {
@@ -44,7 +43,7 @@ window.addEventListener('load', function() {
 
 function preencher_id_dn(){
     Tubo.Id_Dn = event.target.options[event.target.selectedIndex].value;
-    input_dn_interno.value = Tubo.DnInterno[Tubo.Id_Dn].replace(',','.');
+    input_dn_interno.value = Tubo.Id_Dn.replace(',','.');
     calcula_velocidade_perda();
 }
 
@@ -98,7 +97,7 @@ function preencher_diametros(){
 
     for (let i = 0; i < diametros.length; i++){
         let opcao = document.createElement('option');
-        opcao.setAttribute('value', i);
+        opcao.setAttribute('value', diametros[i]);
         opcao.innerHTML = diametros[i];
         seletor_diametro.appendChild(opcao);
     }
@@ -271,3 +270,4 @@ function drop(event) {
 let adicionar_peso = () => peso.value = (+peso.value + +peso_total.value).toFixed(precisao);
 
 let calcula_peso_total = () => peso_total.value = (input_peso_unitario.value*quantidade.value).toFixed(precisao);
+
