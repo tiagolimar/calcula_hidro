@@ -2,16 +2,13 @@
 
 let precisao = 3
 
-
 let criar_tabela_sessao = () => {
     let secao_legiveis = {}
     let template_obj = {
         'tabela':`
         <table>
             <thead>
-                <tr>
-                    <CABECALHO>
-                </tr>
+                <tr><CABECALHO></tr>
             </thead>
             <tbody>
             </tbody>
@@ -20,7 +17,7 @@ let criar_tabela_sessao = () => {
     }
     
     Array.from(document.querySelectorAll('.card-body.legivel')).forEach(e => {
-        let obj = template_obj
+        let obj = {...template_obj}
         obj.id = e.id
         let cabecalho = ''
         Array.from(e.querySelectorAll('label.legivel')).forEach(label => {
@@ -95,78 +92,31 @@ function verificar_vazio(input,valor){
     else input.classList.remove('text-danger');
 }
 
-let objParaTabela = (obj, container) => {
-    let template_html = `
-    <table>
-        <thead>
-            <tr>
-                <CABECALHO>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <CORPO>
-            </tr>
-        </tbody>
-    </table>
-    `
-
-    let headerRow = ''
-    for (const key in obj) {
-        headerRow += `<th>${key}</th>`
-    }
-    template_html = template_html.replace('<CABECALHO>', headerRow)
-
-    let dataRow = ''
-    for (const key in obj) {
-        dataRow += `<td>${obj[key]}</td>`
-    }
-    template_html = template_html.replace('<CORPO>', dataRow)
-
-    container.innerHTML += template_html
-}
-
 let adicionar_secao = (e)=>{
     let card = 'secao_' + e.target.id.replace('adicionar_','');
     card = document.getElementById(card);
 
-    const input = Array.from(card.querySelectorAll('input'))
-    const select = Array.from(card.querySelectorAll('select'))
+    const input = Array.from(card.querySelectorAll('input.legivel'))
+    const select = Array.from(card.querySelectorAll('select.legivel'))
     let campos = input.concat(select)
 
     let obj = secao_legiveis[card.id]
 
+    let dados = ''
+    let cancelar_processo = false
 
-
-    const preencher_obj = (obj)=>{
-        let escreverTabela = true
-
-        for (const campo of campos) {
-            let campoLegivel = campo.classList.contains('legivel')
-            let id_value = campo.id
-            let quebrar = false
-
-            if (campoLegivel) {
-                for (const label of labels) {
-                    let id_chave = label.htmlFor
-                    if (id_chave == id_value) {
-                        if (campo.value>0){
-                            if(!obj.cabeca.valores.length) obj.cabeca.valores.push(label.innerHTML);
-                            obj.corpo.valores.push(campo.value)
-                            break
-                        }else{
-                            alert(`preencha o campo ${label.innerHTML}`)
-                            escreverTabela = false
-                            quebrar = true
-                        }
-                    }
-                    if (quebrar) break
-                }
-                if (quebrar) break
-            }
+    campos.forEach(campo=>{
+        if (campo.value>0){
+            dados += `<td>${campo.value}</td>`
+        }else{
+            let label_correspondente = document.querySelector(`label[for="${campo.id}"]`)
+            alert(`preencha o campo ${label_correspondente.innerHTML}`)
+            cancelar_processo = true
         }
-        return escreverTabela
+    })
+    if (!cancelar_processo){
+        obj.tabela = obj.tabela.replace('</tbody>', `\t<tr>${dados}</tr>\n\t\t\t</tbody>`)
+        secao_legiveis[card.id] = {...obj}
     }
-    
-    if (preencher_obj(obj)) console.log(obj); //objParaTabela(obj, secao_rascunho)
+    console.log(secao_legiveis.secao_tubo.tabela);
 }
