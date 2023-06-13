@@ -42,8 +42,7 @@ window.addEventListener('load', function() {
 });
 
 function preencher_id_dn(){
-    Tubo.Id_Dn = event.target.options[event.target.selectedIndex].value;
-    input_dn_interno.value = Tubo.Id_Dn.replace(',','.');
+    input_dn_interno.value = diametro.value.replace(',','.');
     calcula_velocidade_perda();
 }
 
@@ -97,7 +96,7 @@ function preencher_diametros(){
 
     for (let i = 0; i < diametros.length; i++){
         let opcao = document.createElement('option');
-        opcao.setAttribute('value', diametros[i]);
+        opcao.setAttribute('value', Tubo.DnInterno[i]);
         opcao.innerHTML = diametros[i];
         seletor_diametro.appendChild(opcao);
     }
