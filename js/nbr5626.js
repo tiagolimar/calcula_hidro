@@ -269,3 +269,7 @@ function drop(event) {
 let adicionar_peso = () => peso.value = (+peso.value + +peso_total.value).toFixed(precisao);
 
 let calcula_peso_total = () => peso_total.value = (input_peso_unitario.value*quantidade.value).toFixed(precisao);
+
+inputExpressao.addEventListener("keyup", e=>{
+    if(e.keyCode === 13) calculadora()
+})
