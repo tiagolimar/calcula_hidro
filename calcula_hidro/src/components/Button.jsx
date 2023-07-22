@@ -7,7 +7,7 @@ export const Button = (props) => {
 
     return (
         <Col width={width}>
-            <button className={`btn btn-primary`} onclick={event_}>{title}</button>
+            <button className={`btn btn-primary`} onClick={event_}>{title}</button>
         </Col>
     )
 }

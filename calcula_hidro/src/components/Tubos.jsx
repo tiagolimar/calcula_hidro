@@ -4,7 +4,11 @@ import { Card } from './Card'
 
 const seq = (num)=>{
     let list = []
-    for (let index = 0; index < num; index++) list.push(<InputForm title={`campo${index+1}`} width={3} />)
+    for (let index = 0; index < num; index++) list.push(<InputForm 
+      key={index}
+      title={`campo${index+1}`} 
+      unit=' (l/s)'
+      width={3} />)
     return list
 }
 

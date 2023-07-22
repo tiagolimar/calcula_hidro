@@ -12,7 +12,7 @@ export const Input = (props) => {
         <Col>
             <input type={type}
                 value={value}
-                tep={step}
+                step={step}
                 min={min}
                 id={props.id}
                 className={`form-control ${width}`}
