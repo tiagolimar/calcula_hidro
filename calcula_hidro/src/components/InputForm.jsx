@@ -1,8 +1,15 @@
+import { Col } from "./Col";
+import { Input } from "./Input";
+
 export const InputForm = (props) => {
+  const width = props.width ? `-md-${props.width}` : '';
+  const title = props.title ? props.title : 'Campo';
+  const id = title.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
+
   return (
-    <div className="col">
-        <label forHTML="quantidade" className="legivel">Nº</label>
-        <input type="number" value="1" step="1" min="1" id={props.id} className="form-control" />
-    </div>
+    <Col width={width} >
+      <label forHTML="quantidade">{title}</label>
+      <Input />
+    </Col>
   )
 }
