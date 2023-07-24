@@ -1,15 +1,16 @@
 import { Col } from "./Col";
 
-export const Input = (props) => {
+export const InputNumber = (props) => {
     const type = props.type ? props.type : "text";
-    const value = props.value ? props.value : undefined;
-    const step = props.step ? props.step : 1;
-    const min = props.min ? props.min : 1;
+    const value = props.value ? props.value : "0.000";
+    const step = props.step ? props.step : 0.1;
+    const min = props.min ? props.min : 0.0;
     const placeholder = props.placeholder ? props.placeholder : 'Digite...';
-    const width = props.width ? `col-md-${props.width}` : ''
+    const width = props.width ? props.width : '';
+    const disabled = props.disabled ? props.disabled : false;
 
     return (
-        <Col>
+        <Col width={width}>
             <input type={type}
                 value={value}
                 step={step}
@@ -17,6 +18,7 @@ export const Input = (props) => {
                 id={props.id}
                 className={`form-control ${width}`}
                 placeholder={placeholder}
+                disabled = {disabled}
             />
         </Col>
     )

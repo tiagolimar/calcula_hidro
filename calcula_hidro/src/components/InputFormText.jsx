@@ -1,8 +1,9 @@
-import { ColAuto } from "./ColAuto";
-import { Input } from "./Input";
+import { Col } from "./Col";
+import { InputText } from "./InputText";
+import { Label } from "./Label";
 
 export const InputForm = (props) => {
-    const width = props.width ? `-md-${props.width}` : "";
+    const width = props.width ? props.width : "";
     const title = props.title ? props.title : "Campo";
     const unit = props.unit ? props.unit : " ";
     const id = title
@@ -11,10 +12,10 @@ export const InputForm = (props) => {
         .toLowerCase();
 
     return (
-        <ColAuto>
-            <label forhtml="quantidade">{title}</label>
+        <Col width={width}>
+            <Label htmlFor={id} title={title} />
             <p className="d-inline">{unit}</p>
-            <Input id={id} />
-        </ColAuto>
+            <InputText id={id} />
+        </Col>
     );
 };

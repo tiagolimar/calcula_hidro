@@ -1,21 +1,26 @@
-import React from 'react'
-import { InputForm } from './InputForm'
-import { Card } from './Card'
-
-const seq = (num)=>{
-    let list = []
-    for (let index = 0; index < num; index++) list.push(<InputForm 
-      key={index}
-      title={`campo${index+1}`} 
-      unit=' (l/s)'
-      width={3} />)
-    return list
-}
+import React from "react";
+import { InputFormNumber } from "./InputFormNumber";
+import { Card } from "./Card";
+import { SelectForm } from "./SelectForm";
+import { Col } from "./Col";
 
 export const Tubos = () => {
   return (
-    <Card title='Tubos'>
-        {seq(10)}
+    <Card title="Tubos">
+      <Col>
+        <SelectForm title="Material" />
+        <SelectForm title="DN" unit=" (mm)" />
+        <InputFormNumber title="Peso R." />
+        <InputFormNumber title="Qm" unit=" (m³/h)" />
+        <InputFormNumber disabled title="Ql" unit=" (l/s)" />
+      </Col>
+      <Col>
+        <InputFormNumber disabled title="V" unit=" (m/s)" />
+        <InputFormNumber disabled title="DI" unit=" (mm)" />
+        <InputFormNumber disabled title="Lt" unit=" (m)" />
+        <InputFormNumber disabled title="Ju" unit=" (m/m)" />
+        <InputFormNumber disabled title="Jt" unit=" (mca)" />
+      </Col>
     </Card>
-  )
-}
+  );
+};
