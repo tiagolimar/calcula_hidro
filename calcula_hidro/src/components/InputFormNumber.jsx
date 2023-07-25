@@ -1,7 +1,7 @@
 import { Col } from "./Col";
 import { InputNumber } from "./InputNumber";
 import { Label } from "./Label";
-import { convert_id } from "./convert_id";
+import { convert_id } from "./functions/convert_id";
 
 export const InputFormNumber = (props) => {
     const width = props.width ? props.width : "";

@@ -12,6 +12,8 @@ export const InputText = (props) => {
                 className={`form-control ${width}`}
                 placeholder={placeholder}
                 disabled = {disabled}
+                onChange={props.onChange}
+                value={props.value}
             />
         </Col>
     )
