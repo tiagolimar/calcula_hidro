@@ -8,7 +8,8 @@ export const Calculadora = () => {
   let [input, setInput] = useState("");
   let [output, setOutput] = useState("");
 
-  let handleOnKeyUp = (e)=> e.keyCode == 13 | calc()
+  let handleOnKeyUp = (e)=> {
+    if(e.keyCode == 13){ calc()}}
 
   let handleOnChange = (e)=>{
     input = e.target.value;

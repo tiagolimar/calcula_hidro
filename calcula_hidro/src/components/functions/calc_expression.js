@@ -14,9 +14,8 @@ export const calc_expression = (valor) => {
         if (valor == Infinity) {
             valor_de_saida = 'error';
         } else {
-            valor_de_saida = valor ? valor : 'error' 
+            valor_de_saida = (valor && valor!=0) ? valor : 'error' 
         }
-        
     } else {
         valor_de_saida = 'error';
     }

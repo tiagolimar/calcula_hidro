@@ -66,7 +66,7 @@ function iframe_para_objeto(id,nome){
         conteudo = conteudo.toLowerCase();
         conteudo = conteudo.replaceAll(/\s*\([^)]*\)\s*/g, ''); //remove '(qualquer coisa)' da string
         conteudo = substituir_caracteres(conteudo);
-
+        
         let valores_campo = Array.from(iframe.contentDocument.documentElement.
             querySelectorAll(`td:nth-child(${+i+1})`)).
             map(x=>x.textContent);

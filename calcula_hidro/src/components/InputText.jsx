@@ -13,6 +13,7 @@ export const InputText = (props) => {
                 placeholder={placeholder}
                 disabled = {disabled}
                 onChange={props.onChange}
+                onKeyUp={props.onKeyUp}
                 value={props.value}
             />
         </Col>
