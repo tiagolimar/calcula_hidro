@@ -24,7 +24,7 @@ class TxtToJson():
         'é': 'e','è': 'e','ê': 'e','í': 'i','ì': 'i',
         'î': 'i','ó': 'o','ò': 'o','ô': 'o','õ': 'o',
         'ú': 'u','ù': 'u','û': 'u','ç': 'c','.':'',
-        '\\':'_','/':'_','(':'',')':'','%':''}
+        '\\':'_','/':'_','(':'',')':'','%':'','º':''}
 
         for caractere in text_:
             try:
@@ -50,13 +50,14 @@ class TxtToJson():
             values = [i] + line.split('\t')
 
             for k,key in enumerate(self.json_keys):
+                value = str(values[k]).strip().replace(',','.')
                 try:
-                    value = values[k].replace(',','.')
-                    int_value = int(value)
-                    float_value = float(value)
-                    
+                    value = int(value)
                 except:
-                    value = values[k]
+                    try:
+                        value = float(value)
+                    except:
+                        pass
 
                 pipe[key] = value
 
