@@ -12,7 +12,8 @@ class TxtToJson():
 
         self.formatar_cabecalho()
         self.formatar_corpo()
-        self.json_text = f'"{str(self.json_content)}"'
+
+        self.json_text = str(self.json_content).replace("'",'"')
 
         with open(f'{self.nome_arquivo}.json','w', encoding='utf-8') as arquivo:
             arquivo.write(self.json_text)

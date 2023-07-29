@@ -3,6 +3,10 @@ import { InputFormNumber } from "./InputFormNumber";
 import { Card } from "./Card";
 import { SelectForm } from "./SelectForm";
 import { Col } from "./Col";
+import { getPipesMaterials } from "./functions/getPipesMaterials.js"
+
+const pipesMaterials = await getPipesMaterials('./src/data/nbr_5626_tubos.json');
+console.log(pipesMaterials);
 
 export const Tubos = () => {
   return (
