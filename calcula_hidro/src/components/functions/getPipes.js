@@ -50,7 +50,7 @@ function groupByUniqueValue(objectsArray, keyName, uniqueValuesArray) {
     return resultArray;
 }
 
-export const getPipesMaterials = async (file) => {
+export const getPipes = async (file) => {
     const pipes = await fetchLocalJson(file);
     const type_materials = getUniqueValuesByKey(pipes, "material");
     const materials = groupByUniqueValue(pipes, "material", type_materials);
