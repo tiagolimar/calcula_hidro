@@ -12,10 +12,17 @@ export const Tubos = () => {
   const [listDn, setListDn] = useState([]);
 
   const updateListDn = (data) => {
-    return data;
+    try{
+      setListDn(data.material.dn_comercial_mm);
+    }catch(error){
+      console.log("Error: ", error);
+    }
   };
 
-  console.log(material);
+  const updateMaterial = e=>{
+    setMaterial(e.target.value)
+    updateListDn();
+  }
   
   useEffect(() => {
     (async () => {
@@ -34,7 +41,7 @@ export const Tubos = () => {
           title="Material"
           data={listMaterials}
           value={material}
-          onChange={e=>setMaterial(e.target.value)}
+          onChange={updateMaterial}
         />
         <SelectForm title="DN" unit=" (mm)" />
         <InputFormNumber title="Peso R." />
