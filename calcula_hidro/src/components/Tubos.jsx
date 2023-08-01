@@ -9,30 +9,28 @@ export const Tubos = () => {
   const [material, setMaterial] = useState("");
   const [listPipes, setListPipes] = useState([]);
   const [listMaterials, setListMaterials] = useState([]);
-  const [listDn, setListDn] = useState([]);
+  const [listDN, setListDN] = useState([]);
+  const [listDI, setListDI] = useState([]);
 
-  const updateListDn = (data) => {
-    try{
-      setListDn(data.material.dn_comercial_mm);
-    }catch(error){
-      console.log("Error: ", error);
-    }
-  };
-
-  const updateMaterial = e=>{
-    setMaterial(e.target.value)
-    updateListDn();
-  }
-  
-  useEffect(() => {
+  useEffect(function main () {
     (async () => {
       const data = await getPipes("./src/data/nbr_5626_tubos.json");
       setListPipes(data);
       setListMaterials(data.map((item) => item.material));
-      setMaterial(data[0].material)
-      setListDn(updateListDn(data));
+      setMaterial(data[0].material);
     })();
   }, []);
+
+  useEffect(function updateListDN(){
+    if (listPipes.length > 0) {
+      for (const pipe of listPipes) {
+        if (pipe.material == material) {
+          setListDN(pipe.dn_comercial_mm);
+          setListDI(pipe.dn_interno_mm)
+        }
+      }
+    }
+  },[material])
 
   return listPipes.length > 0 ? (
     <Card title="Tubos">
@@ -41,18 +39,18 @@ export const Tubos = () => {
           title="Material"
           data={listMaterials}
           value={material}
-          onChange={updateMaterial}
+          onChange={(e) => setMaterial(e.target.value)}
         />
-        <SelectForm title="DN" unit=" (mm)" />
         <InputFormNumber title="Peso R." />
-        <InputFormNumber title="Qm" unit=" (m³/h)" />
-        <InputFormNumber disabled title="Ql" unit=" (l/s)" />
+        <InputFormNumber disabled title="DI" unit=" (mm)" />
+        <InputFormNumber disabled title="V" unit=" (m/s)" />
+        <InputFormNumber disabled title="Ju" unit=" (m/m)" />
       </Col>
       <Col>
-        <InputFormNumber disabled title="V" unit=" (m/s)" />
-        <InputFormNumber disabled title="DI" unit=" (mm)" />
+        <SelectForm title="DN" unit=" (mm)" data={listDN} />
+        <InputFormNumber title="Qm" unit=" (m³/h)" />
+        <InputFormNumber disabled title="Ql" unit=" (l/s)" />
         <InputFormNumber disabled title="Lt" unit=" (m)" />
-        <InputFormNumber disabled title="Ju" unit=" (m/m)" />
         <InputFormNumber disabled title="Jt" unit=" (mca)" />
       </Col>
     </Card>
