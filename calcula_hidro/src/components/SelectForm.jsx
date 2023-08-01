@@ -15,7 +15,7 @@ export const SelectForm = (props) => {
     <Col width={width}>
       <Label htmlFor={id} title={title} />
       <p className="d-inline">{unit}</p>
-      <Select id={id} onChange={props.onChange}>
+      <Select id={id} onChange={props.onChange} value={props.value} >
         {props.data ? (props.data.map((item, id) => {
           return <option value={item} key={id}>{item}</option>;
         })):null}

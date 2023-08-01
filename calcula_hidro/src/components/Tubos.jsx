@@ -11,8 +11,10 @@ export const Tubos = () => {
   const [listMaterials, setListMaterials] = useState([]);
   const [listDN, setListDN] = useState([]);
   const [listDI, setListDI] = useState([]);
+  const [DN, setDN] = useState('0');
+  const [DI, setDI] = useState('0');
 
-  useEffect(function main () {
+  useEffect(function main() {
     (async () => {
       const data = await getPipes("./src/data/nbr_5626_tubos.json");
       setListPipes(data);
@@ -21,16 +23,25 @@ export const Tubos = () => {
     })();
   }, []);
 
-  useEffect(function updateListDN(){
-    if (listPipes.length > 0) {
-      for (const pipe of listPipes) {
-        if (pipe.material == material) {
-          setListDN(pipe.dn_comercial_mm);
-          setListDI(pipe.dn_interno_mm)
+  useEffect(
+    function updateListDN() {
+      if (listPipes.length > 0) {
+        for (const pipe of listPipes) {
+          if (pipe.material == material) {
+            setListDN(pipe.dn_comercial_mm);
+            setListDI(pipe.dn_interno_mm);
+            setDN(listDN[0]);
+            setDI(listDI[0]);
+          }
         }
+      }},[material]);
+
+  useEffect(
+    function updateDI() {
+      for (const i in listDN) {
+        if (listDN[i] == DN) setDI(listDI[i]);
       }
-    }
-  },[material])
+    },[DN]);
 
   return listPipes.length > 0 ? (
     <Card title="Tubos">
@@ -42,12 +53,18 @@ export const Tubos = () => {
           onChange={(e) => setMaterial(e.target.value)}
         />
         <InputFormNumber title="Peso R." />
-        <InputFormNumber disabled title="DI" unit=" (mm)" />
+        <InputFormNumber disabled title="DI" unit=" (mm)" value={DI} />
         <InputFormNumber disabled title="V" unit=" (m/s)" />
         <InputFormNumber disabled title="Ju" unit=" (m/m)" />
       </Col>
       <Col>
-        <SelectForm title="DN" unit=" (mm)" data={listDN} />
+        <SelectForm
+          title="DN"
+          unit=" (mm)"
+          data={listDN}
+          value={DN}
+          onChange={(e) => setDN(e.target.value)}
+        />
         <InputFormNumber title="Qm" unit=" (m³/h)" />
         <InputFormNumber disabled title="Ql" unit=" (l/s)" />
         <InputFormNumber disabled title="Lt" unit=" (m)" />

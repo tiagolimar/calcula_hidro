@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Col } from "./Col";
 
 export const InputNumber = (props) => {
@@ -7,7 +8,7 @@ export const InputNumber = (props) => {
     const placeholder = props.placeholder ? props.placeholder : 'Digite...';
     const width = props.width ? props.width : '';
     const disabled = props.disabled ? props.disabled : false;
-
+    
     return (
         <Col width={width}>
             <input type={type}
