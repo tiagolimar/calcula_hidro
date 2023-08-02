@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Col } from "./Col";
 import { InputNumber } from "./InputNumber";
 import { Label } from "./Label";
@@ -20,6 +19,7 @@ export const InputFormNumber = (props) => {
         id={id}
         value={props.value}
         placeholder={props.placeholder}
+        onChange={props.onChange}
       />
     </Col>
   );

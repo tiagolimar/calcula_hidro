@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Col } from "./Col";
 
 export const InputNumber = (props) => {
@@ -19,6 +18,7 @@ export const InputNumber = (props) => {
                 className={`form-control ${width}`}
                 placeholder={placeholder}
                 disabled = {disabled}
+                onChange={props.onChange}
             />
         </Col>
     )
