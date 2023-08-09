@@ -4,6 +4,7 @@ import { Card } from "./Card";
 import { SelectForm } from "./SelectForm";
 import { Col } from "./Col";
 import { obterTubos } from "./functions/obterTubos.js";
+import { obterVazao,converterVazao, obterPeso, obterVelocidade, obterPerda } from "./functions/equations";
 
 export const Tubos = () => {
     const [material, setMaterial] = useState("");
@@ -60,37 +61,32 @@ export const Tubos = () => {
     },[material, listaDI, listaDN, listaTubos]);
 
     useEffect(()=>{
-        for (const i in listaDN) {
-            if (listaDN[i] == DN) {
-                setDI(listaDI[i]);
-                break;
-            }
+        const index = listaDN.findIndex(dn => dn == DN);
+        if (index !== -1) {
+            setDI(listaDI[index]);
         }
     },[DN, listaDI, listaDN]);
 
     useEffect(()=>{
-        const vazao = eval(0.3*peso**0.5).toFixed(3);
-        if (vazao != vazaoLitro){
-            setVazaoLitro(vazao);
-            setVazaoMetro(eval(0.3*peso**0.5/1000*3600).toFixed(3));
+        const vazaoLitro_ = obterVazao(peso);
+        if (vazaoLitro != vazaoLitro_){
+            setVazaoMetro(converterVazao(vazaoLitro_));
+            setVazaoLitro(vazaoLitro_);
         }
-    },[peso,vazaoLitro])
+    },[peso])
     
     useEffect(()=>{
-        const vazao = eval(vazaoMetro*1000/3600).toFixed(3);
-        if(vazao != vazaoLitro){
-            setVazaoLitro(vazao);
-            setPeso(eval((vazaoLitro/0.3)**2).toFixed(3));
+        const vazaoLitro_ = converterVazao(vazaoMetro);
+        if(vazaoLitro_ != vazaoLitro){
+            setVazaoLitro(vazaoLitro_);
+            setPeso(obterPeso(vazaoLitro_));
         }
-    },[vazaoMetro,vazaoLitro])
+    },[vazaoMetro])
     
     useEffect(()=>{
-        const vazao_MpS = vazaoMetro/3600;
-        const diameter = DI/1000;
-
-        if (vazao_MpS){
-            setVelocidade((4*vazao_MpS)/(Math.PI*diameter**2).toFixed(3));
-            setPerdaUnit(0.000859*(vazao_MpS**(1.75))/(diameter**4.75));
+        if (vazaoMetro){
+            setVelocidade(obterVelocidade(vazaoMetro,DI));
+            setPerdaUnit(obterPerda(vazaoMetro,DI));
         }
 
         if(perdaUnit*lengthTotal){
