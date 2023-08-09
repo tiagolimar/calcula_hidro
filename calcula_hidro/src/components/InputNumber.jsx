@@ -1,8 +1,8 @@
 import { Col } from "./Col";
 
 export const InputNumber = (props) => {
-    const type = props.type ? props.type : "text";
-    const placeholder = props.placeholder ? props.placeholder : 'Digite...';
+    const type = props.type ? props.type : "number";
+    const placeholder = props.placeholder ? props.placeholder : 'Sem valor...';
     const width = props.width ? props.width : '';
     const disabled = props.disabled ? props.disabled : false;
     

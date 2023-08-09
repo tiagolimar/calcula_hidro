@@ -38,7 +38,7 @@ export const Tubos = () => {
     
     useEffect(()=>{
         (async () => {
-            const data = await obterTubos("./src/data/nbr_5626_tubos.json");
+            const data = await getPipes("./src/data/nbr_5626_tubos.json");
             setListaTubos(data);
             setListaMateriais(data.map((item) => item.material));
             setMaterial(data[0].material);
