@@ -4,14 +4,7 @@ import { Card } from "./Card";
 import { SelectForm } from "./SelectForm";
 import { Col } from "./Col";
 import { obterTubos } from "./functions/obterTubos.js";
-import {
-  obterVazao,
-  deMetroPraLitro,
-  deLitroPraMetro,
-  obterPeso,
-  obterVelocidade,
-  obterPerda,
-} from "./functions/equations";
+import { obterVazao, deMetroPraLitro, deLitroPraMetro, obterPeso, obterVelocidade, obterPerda } from "./functions/equations";
 
 export const Tubos = () => {
     const [material, setMaterial] = useState("");
@@ -30,19 +23,6 @@ export const Tubos = () => {
     const [perdaTotal,setPerdaTotal] = useState(0);
     const [velocidade,setVelocidade] = useState(0);
     const [perdaUnit,setPerdaUnit] = useState(0);
-    
-    const [dataTubo,setDataTubo] = useState({
-        DN: 0,
-        DI: 0,
-        indexDN: 0,
-        peso: 0,
-        vazaoMetro: 0,
-        vazaoLitro: 0,
-        lengthTotal: 0,
-        perdaTotal: 0,
-        velocidade: 0,
-        perdaUnit: 0,
-    })
     
     useEffect(()=>{
         (async () => {

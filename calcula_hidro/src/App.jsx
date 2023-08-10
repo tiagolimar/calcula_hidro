@@ -1,5 +1,6 @@
 import { Tubos } from './components/Tubos';
 import { Calculadora } from './components/Calculadora';
+import { PecaUtilizacao } from './components/PecaUtilizacao';
 import { Card } from './components/Card';
 import { Nav } from './components/Nav';
 
@@ -11,7 +12,7 @@ function App() {
       <div className="container p-2">
         <Calculadora />
         <Tubos />
-        <Card title="Peças de Utilização"></Card>
+        <PecaUtilizacao />
         <Card title="Conexão"></Card>
       </div > 
     </>
