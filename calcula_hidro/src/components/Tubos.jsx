@@ -1,10 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InputFormNumber } from "./InputFormNumber";
 import { Card } from "./Card";
 import { SelectForm } from "./SelectForm";
 import { Col } from "./Col";
 import { obterTubos } from "./functions/obterTubos.js";
-import { obterVazao,converterVazao, obterPeso, obterVelocidade, obterPerda } from "./functions/equations";
+import {
+  obterVazao,
+  deMetroPraLitro,
+  deLitroPraMetro,
+  obterPeso,
+  obterVelocidade,
+  obterPerda,
+} from "./functions/equations";
 
 export const Tubos = () => {
     const [material, setMaterial] = useState("");
@@ -67,30 +74,36 @@ export const Tubos = () => {
         }
     },[DN, listaDI, listaDN]);
 
-    useEffect(()=>{
-        const vazaoLitro_ = obterVazao(peso);
-        if (vazaoLitro != vazaoLitro_){
-            setVazaoMetro(converterVazao(vazaoLitro_));
-            setVazaoLitro(vazaoLitro_);
-        }
-    },[peso])
-    
-    useEffect(()=>{
-        const vazaoLitro_ = converterVazao(vazaoMetro);
-        if(vazaoLitro_ != vazaoLitro){
-            setVazaoLitro(vazaoLitro_);
-            setPeso(obterPeso(vazaoLitro_));
-        }
-    },[vazaoMetro])
+    const atualizaPeso = (peso_)=>{
+        const vazaoLitro_ = obterVazao(peso_);
+        const vazaoMetro_ = deLitroPraMetro(vazaoLitro_)
+       
+        setPeso(peso_);
+        setVazaoLitro(vazaoLitro_);
+        setVazaoMetro(vazaoMetro_);
+    }
+
+    const atualizaVazao = (vazaoMetro_)=>{
+        const vazaoLitro_ = deMetroPraLitro(vazaoMetro_);
+        const peso_ = obterPeso(vazaoLitro_);
+        
+        setVazaoMetro(vazaoMetro_);
+        setVazaoLitro(vazaoLitro_);
+        setPeso(peso_);
+    }
     
     useEffect(()=>{
         if (vazaoMetro){
-            setVelocidade(obterVelocidade(vazaoMetro,DI));
-            setPerdaUnit(obterPerda(vazaoMetro,DI));
+            const velocidade_= obterVelocidade(vazaoMetro,DI);
+            const perdaUnit_ = obterPerda(vazaoMetro,DI);
+
+            setVelocidade(velocidade_);
+            setPerdaUnit(perdaUnit_);
         }
 
         if(perdaUnit*lengthTotal){
-            setPerdaTotal(perdaUnit*lengthTotal);
+            const perdaTotal_ = perdaUnit*lengthTotal;
+            setPerdaTotal(perdaTotal_);
         }
         
     },[vazaoMetro,DI,lengthTotal])
@@ -104,10 +117,10 @@ export const Tubos = () => {
                     value={material}
                     onChange={(e) => setMaterial(e.target.value)}
                 />
-                <InputFormNumber 
+                <InputFormNumber
                 title="Peso R."
                 value={peso}
-                onChange={e => setPeso(e.target.value)}
+                onChange={({target})=>atualizaPeso(target.value)}
                 />
                 <InputFormNumber
                     title="Lt"
@@ -139,7 +152,7 @@ export const Tubos = () => {
                     title="Qm"
                     unit=" (m³/h)"
                     value={vazaoMetro}
-                    onChange={e=>{setVazaoMetro(e.target.value)}}
+                    onChange={({target})=>{atualizaVazao(target.value)}}
                 />
                 <InputFormNumber
                     disabled

@@ -1,12 +1,18 @@
-const precisao = 3;
+const precisao = 5;
 
-const formatar = num=> num.toFixed(precisao)
+export const formatar = num => num.toFixed(5)
+
 export const obterVazao = (peso) => {
     return formatar(0.3*peso**0.5);
 }
 
-export const converterVazao = (vazaoMetro)=>{
+export const deMetroPraLitro = (vazaoMetro)=>{
     const vazaoLitro = formatar(vazaoMetro*1000/3600);
+    return vazaoLitro;
+}
+
+export const deLitroPraMetro = (vazaoMetro)=>{
+    const vazaoLitro = formatar(vazaoMetro/1000*3600);
     return vazaoLitro;
 }
 
