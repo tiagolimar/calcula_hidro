@@ -1,4 +1,4 @@
-async function fetchLocalJson(filePath) {
+export async function fetchLocalJson(filePath) {
     try {
         const response = await fetch(filePath);
         if (!response.ok) {
