@@ -1,5 +1,3 @@
-const precisao = 5;
-
 export const formatar = num => num.toFixed(5)
 
 export const obterVazao = (peso) => {

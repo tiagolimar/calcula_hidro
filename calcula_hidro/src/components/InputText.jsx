@@ -1,4 +1,5 @@
 import { Col } from "./Col";
+import { PropTypes } from 'prop-types';
 
 export const InputText = (props) => {
     const placeholder = props.placeholder ? props.placeholder : 'Digite...';
@@ -18,4 +19,14 @@ export const InputText = (props) => {
             />
         </Col>
     )
+}
+
+InputText.propTypes = {
+    placeholder: PropTypes.string,
+    id: PropTypes.string,
+    onKeyUp: PropTypes.func,
+    disabled: PropTypes.bool,
+    onChange: PropTypes.func,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 }

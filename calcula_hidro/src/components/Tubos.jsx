@@ -6,6 +6,11 @@ import { Col } from "./Col";
 import { obterTubos } from "./functions/obterTubos.js";
 import { obterVazao, deMetroPraLitro, deLitroPraMetro, obterPeso, obterVelocidade, obterPerda } from "./functions/equations";
 
+/**
+ * Renders a form for selecting and calculating properties of pipes.
+ *
+ * @returns {JSX.Element|null} The rendered component.
+ */
 export const Tubos = () => {
     const [material, setMaterial] = useState("");
     const [listaTubos, setListaTubos] = useState([]);
@@ -19,30 +24,31 @@ export const Tubos = () => {
     const [peso,setPeso] = useState(0);
     const [vazaoMetro,setVazaoMetro] = useState(0);
     const [vazaoLitro,setVazaoLitro] = useState(0);
-    const [lengthTotal,setLengthTotal] = useState(0);
+    const [comprimento,setComprimento] = useState(0);
     const [perdaTotal,setPerdaTotal] = useState(0);
     const [velocidade,setVelocidade] = useState(0);
     const [perdaUnit,setPerdaUnit] = useState(0);
     
+    const fetchTubos = async () => {
+        const data = await obterTubos("./src/data/nbr_5626_tubos.json");
+        setListaTubos(data);
+        setListaMateriais(data.map((item) => item.material));
+        setMaterial(data[0].material);
+    };
+
     useEffect(()=>{
-        (async () => {
-            const data = await obterTubos("./src/data/nbr_5626_tubos.json");
-            setListaTubos(data);
-            setListaMateriais(data.map((item) => item.material));
-            setMaterial(data[0].material);
-        })();
+        fetchTubos();
     }, []);
 
     useEffect(()=>{
         if (listaTubos.length > 0) {
-            for (const tubo of listaTubos) {
-                if (tubo.material == material) {
-                    setListaDN(tubo.dn_comercial_mm);
-                    setListaDI(tubo.dn_interno_mm);
-                    setDN(tubo.dn_comercial_mm[0]);
-                    setDI(tubo.dn_interno_mm[0]);
-                    setIndexDN(0);
-                }
+            const tubo = listaTubos.find(tubo => tubo.material === material);
+            if (tubo) {
+                setListaDN(tubo.dn_comercial_mm);
+                setListaDI(tubo.dn_interno_mm);
+                setDN(tubo.dn_comercial_mm[0]);
+                setDI(tubo.dn_interno_mm[0]);
+                setIndexDN(0);
             }
         }
     },[material, listaDI, listaDN, listaTubos]);
@@ -73,20 +79,20 @@ export const Tubos = () => {
     }
     
     useEffect(()=>{
-        if (vazaoMetro){
-            const velocidade_= obterVelocidade(vazaoMetro,DI);
-            const perdaUnit_ = obterPerda(vazaoMetro,DI);
+        const velocidade_= obterVelocidade(vazaoMetro,DI);
+        const perdaUnit_ = obterPerda(vazaoMetro,DI);
 
+        if (vazaoMetro){
             setVelocidade(velocidade_);
             setPerdaUnit(perdaUnit_);
         }
 
-        if(perdaUnit*lengthTotal){
-            const perdaTotal_ = perdaUnit*lengthTotal;
-            setPerdaTotal(perdaTotal_);
+        if(perdaUnit_*comprimento){
+            const perdaTotal_ = perdaUnit*comprimento;
+            setPerdaTotal(perdaTotal_.toFixed());
         }
         
-    },[vazaoMetro,DI,lengthTotal])
+    },[vazaoMetro,DI,comprimento,perdaUnit])
     
     return listaTubos.length > 0 ? (
         <Card title="Tubos">
@@ -100,13 +106,13 @@ export const Tubos = () => {
                 <InputFormNumber
                 title="Peso R."
                 value={peso}
-                onChange={({target})=>atualizaPeso(target.value)}
+                onChange={(e)=>atualizaPeso(e.target.value)}
                 />
                 <InputFormNumber
                     title="Lt"
                     unit=" (m)"
-                    value={lengthTotal}
-                    onChange={e=>setLengthTotal(e.target.value)}
+                    value={comprimento}
+                    onChange={e=>setComprimento(e.target.value)}
                 />
                 <InputFormNumber disabled
                     title="DI"

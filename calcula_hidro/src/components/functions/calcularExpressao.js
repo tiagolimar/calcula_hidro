@@ -1,4 +1,4 @@
-export const calc_expression = (valor) => {
+export const calcularExpressao = (valor) => {
     let valor_de_saida;
     let temAlgumaLetra = /[a-zA-Z]/.test(valor);
     

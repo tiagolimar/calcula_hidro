@@ -13,7 +13,7 @@ function App() {
         <Calculadora />
         <Tubos />
         <PecaUtilizacao />
-        <Card title="Conexão"></Card>
+        <Card title="Conexão">VAZIO</Card>
       </div > 
     </>
   )

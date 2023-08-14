@@ -1,4 +1,5 @@
 import { Col } from "./Col";
+import { PropTypes } from 'prop-types';
 
 export const InputNumber = (props) => {
     const type = props.type ? props.type : "number";
@@ -20,3 +21,14 @@ export const InputNumber = (props) => {
         </Col>
     )
 }
+
+InputNumber.propTypes = {
+    width: PropTypes.string,
+    type: PropTypes.string,
+    title: PropTypes.string,
+    id: PropTypes.string,
+    disabled: PropTypes.bool,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func,
+  };
