@@ -4,159 +4,182 @@ import { Card } from "./Card";
 import { SelectForm } from "./SelectForm";
 import { Col } from "./Col";
 import { obterTubos } from "./functions/obterTubos.js";
-import { obterVazao, deMetroPraLitro, deLitroPraMetro, obterPeso, obterVelocidade, obterPerda } from "./functions/equations";
+import {
+    obterVazao,
+    deMetroPraLitro,
+    deLitroPraMetro,
+    obterPeso,
+    obterVelocidade,
+    obterPerda,
+} from "./functions/equations";
 
-/**
- * Renders a form for selecting and calculating properties of pipes.
- *
- * @returns {JSX.Element|null} The rendered component.
- */
 export const Tubos = () => {
-    const [material, setMaterial] = useState("");
-    const [listaTubos, setListaTubos] = useState([]);
-    const [listaMateriais, setListaMateriais] = useState([]);
-    const [listaDN, setListaDN] = useState([]);
-    const [listaDI, setListaDI] = useState([]);
-    const [DN, setDN] = useState(0);
-    const [DI, setDI] = useState(0);
-    const [indexDN,setIndexDN] = useState(0);
+    const [inputs, setInputs] = useState({
+        material: "",
+        listaTubos: [],
+        listaMateriais: [],
+        listaDN: [],
+        listaDI: [],
+        DN: 0,
+        DI: 0,
+        indexDN: 0,
+        peso: 0,
+        vazaoMetro: 0,
+        vazaoLitro: 0,
+        comprimentoTotal: 0,
+        perdaTotal: 0,
+        velocidade: 0,
+        perdaUnit: 0,
+    });
 
-    const [peso,setPeso] = useState(0);
-    const [vazaoMetro,setVazaoMetro] = useState(0);
-    const [vazaoLitro,setVazaoLitro] = useState(0);
-    const [comprimento,setComprimento] = useState(0);
-    const [perdaTotal,setPerdaTotal] = useState(0);
-    const [velocidade,setVelocidade] = useState(0);
-    const [perdaUnit,setPerdaUnit] = useState(0);
-    
-    const fetchTubos = async () => {
-        const data = await obterTubos("./src/data/nbr_5626_tubos.json");
-        setListaTubos(data);
-        setListaMateriais(data.map((item) => item.material));
-        setMaterial(data[0].material);
-    };
-
-    useEffect(()=>{
-        fetchTubos();
+    useEffect(() => {
+        (async () => {
+            const data = await obterTubos("./src/data/nbr_5626_tubos.json");
+            const material = data[0].material;
+            setInputs({
+                ...inputs,
+                listaTubos: data,
+                listaMateriais: data.map((item) => item.material),
+                material,
+                listaDN: data[0].dn_comercial_mm,
+                listaDI: data[0].dn_interno_mm,
+                DN: data[0].dn_comercial_mm[0],
+                DI: data[0].dn_interno_mm[0],
+                indexDN: 0,
+            });
+        })();
     }, []);
 
-    useEffect(()=>{
-        if (listaTubos.length > 0) {
-            const tubo = listaTubos.find(tubo => tubo.material === material);
-            if (tubo) {
-                setListaDN(tubo.dn_comercial_mm);
-                setListaDI(tubo.dn_interno_mm);
-                setDN(tubo.dn_comercial_mm[0]);
-                setDI(tubo.dn_interno_mm[0]);
-                setIndexDN(0);
+    const atualizarDN = (material) => {
+        if (inputs.listaTubos.length > 0) {
+            let indexDN = 0;
+            for (const tubo of inputs.listaTubos) {
+                if (tubo.material == material) {
+                    const DN = tubo.dn_comercial_mm[0];
+                    const DI = tubo.dn_interno_mm[0]
+                    const listaDN = tubo.dn_comercial_mm;
+                    const listaDI = tubo.dn_interno_mm;
+                    setInputs({
+                        ...inputs, material, listaDN, listaDI, DN, DI, indexDN,
+                    });
+                    atualizarDI({DN, listaDI, listaDN});
+                    break;
+                }
+                indexDN++;
             }
         }
-    },[material, listaDI, listaDN, listaTubos]);
+    };
 
-    useEffect(()=>{
-        const index = listaDN.findIndex(dn => dn == DN);
+    const atualizarDI = ({DN, listaDI, listaDN}) => {
+        listaDI = listaDI || inputs.listaDI;
+        listaDN = listaDN || inputs.listaDN;
+        const index = listaDN.findIndex((dn) => dn == DN);
         if (index !== -1) {
-            setDI(listaDI[index]);
+            const DI = listaDI[index];
+            const {velocidade,perdaUnit,perdaTotal} = atualizaInputs({DI});
+            setInputs({ ...inputs, DI, DN, velocidade, perdaUnit, perdaTotal});
         }
-    },[DN, listaDI, listaDN]);
+    };
 
-    const atualizaPeso = (peso_)=>{
-        const vazaoLitro_ = obterVazao(peso_);
-        const vazaoMetro_ = deLitroPraMetro(vazaoLitro_)
-       
-        setPeso(peso_);
-        setVazaoLitro(vazaoLitro_);
-        setVazaoMetro(vazaoMetro_);
+    const atualizaPeso = (peso) => {
+        const vazaoLitro = obterVazao(peso);
+        const vazaoMetro = deLitroPraMetro(vazaoLitro);
+        const DI = inputs.DI;
+        const {velocidade,perdaUnit,perdaTotal} = atualizaInputs({DI});
+        setInputs({ ...inputs, peso, vazaoLitro, vazaoMetro, velocidade, perdaUnit, perdaTotal});
+    };
+
+    const atualizaVazao = (vazaoMetro) => {
+        const vazaoLitro = deMetroPraLitro(vazaoMetro);
+        const peso = obterPeso(vazaoLitro);
+        const DI = inputs.DI;
+        const {velocidade,perdaUnit,perdaTotal} = atualizaInputs({DI,vazaoMetro});
+        setInputs({...inputs, vazaoMetro, vazaoLitro, peso, velocidade, perdaUnit, perdaTotal });
+    };
+
+    const atualizarPerda = (comprimentoTotal) => {
+        const DI = inputs.DI;
+        const {velocidade,perdaUnit,perdaTotal} = atualizaInputs({DI,comprimentoTotal});
+        setInputs({ ...inputs, comprimentoTotal, velocidade, perdaUnit, perdaTotal});
+    };
+
+    const atualizaInputs = ({DI,comprimentoTotal,perdaTotal,vazaoMetro})=>{
+        vazaoMetro = vazaoMetro || inputs.vazaoMetro;
+        comprimentoTotal = comprimentoTotal || inputs.comprimentoTotal;
+        const velocidade = inputs.vazaoMetro? obterVelocidade(inputs.vazaoMetro, DI) : inputs.velocidade;
+        const perdaUnit = inputs.vazaoMetro? obterPerda(inputs.vazaoMetro, DI) : inputs.perdaUnit;
+        perdaTotal = inputs.perdaUnit * inputs.comprimentoTotal || inputs.perdaTotal;
+        return {velocidade, perdaUnit, perdaTotal}
     }
 
-    const atualizaVazao = (vazaoMetro_)=>{
-        const vazaoLitro_ = deMetroPraLitro(vazaoMetro_);
-        const peso_ = obterPeso(vazaoLitro_);
-        
-        setVazaoMetro(vazaoMetro_);
-        setVazaoLitro(vazaoLitro_);
-        setPeso(peso_);
-    }
-    
-    useEffect(()=>{
-        const velocidade_= obterVelocidade(vazaoMetro,DI);
-        const perdaUnit_ = obterPerda(vazaoMetro,DI);
-
-        if (vazaoMetro){
-            setVelocidade(velocidade_);
-            setPerdaUnit(perdaUnit_);
-        }
-
-        if(perdaUnit_*comprimento){
-            const perdaTotal_ = perdaUnit*comprimento;
-            setPerdaTotal(perdaTotal_.toFixed());
-        }
-        
-    },[vazaoMetro,DI,comprimento,perdaUnit])
-    
-    return listaTubos.length > 0 ? (
+    return inputs.listaTubos.length > 0 ? (
         <Card title="Tubos">
             <Col>
                 <SelectForm
                     title="Material"
-                    data={listaMateriais}
-                    value={material}
-                    onChange={(e) => setMaterial(e.target.value)}
+                    data={inputs.listaMateriais}
+                    value={inputs.material}
+                    onChange={(e) => atualizarDN(e.target.value)}
                 />
                 <InputFormNumber
-                title="Peso R."
-                value={peso}
-                onChange={(e)=>atualizaPeso(e.target.value)}
+                    title="Qm"
+                    unit=" (m³/h)"
+                    value={inputs.vazaoMetro}
+                    onChange={(e) => {
+                        atualizaVazao(e.target.value);
+                    }}
                 />
                 <InputFormNumber
-                    title="Lt"
-                    unit=" (m)"
-                    value={comprimento}
-                    onChange={e=>setComprimento(e.target.value)}
+                    disabled
+                    title="Ql"
+                    unit=" (l/s)"
+                    value={inputs.vazaoLitro}
                 />
-                <InputFormNumber disabled
+
+                <InputFormNumber
+                    disabled
                     title="DI"
                     unit=" (mm)"
-                    value={DI}
+                    value={inputs.DI}
                 />
-                <InputFormNumber disabled
+                <InputFormNumber
+                    disabled
                     title="Ju"
                     unit=" (m/m)"
-                    value={perdaUnit}
+                    value={inputs.perdaUnit}
                 />
             </Col>
             <Col>
                 <SelectForm
                     title="DN"
                     unit=" (mm)"
-                    data={listaDN}
-                    value={DN}
-                    onChange={e => setDN(e.target.value)}
-                    selectedIndex = {indexDN}
+                    data={inputs.listaDN}
+                    value={inputs.DN}
+                    onChange={(e) => atualizarDI({[DN]:e.target.value})}
+                    selectedIndex={inputs.indexDN}
                 />
                 <InputFormNumber
-                    title="Qm"
-                    unit=" (m³/h)"
-                    value={vazaoMetro}
-                    onChange={({target})=>{atualizaVazao(target.value)}}
+                    title="Peso R."
+                    value={inputs.peso}
+                    onChange={(e) => atualizaPeso(e.target.value)}
                 />
                 <InputFormNumber
-                    disabled
-                    title="Ql"
-                    unit=" (l/s)"
-                    value={vazaoLitro}
+                    title="Lt"
+                    unit=" (m)"
+                    value={inputs.comprimentoTotal}
+                    onChange={(e) => atualizarPerda(e.target.value)}
                 />
                 <InputFormNumber
                     disabled
                     title="V"
                     unit=" (m/s)"
-                    value={velocidade}
+                    value={inputs.velocidade}
                 />
                 <InputFormNumber
                     disabled
                     title="Jt"
                     unit=" (mca)"
-                    value={perdaTotal}
+                    value={inputs.perdaTotal}
                 />
             </Col>
         </Card>
