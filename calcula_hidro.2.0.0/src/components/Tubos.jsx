@@ -29,14 +29,14 @@ export const Tubos = () => {
     const [velocidade,setVelocidade] = useState(0);
     const [perdaUnit,setPerdaUnit] = useState(0);
     
-    const fetchTubos = async () => {
-        const data = await obterTubos("./src/data/nbr_5626_tubos.json");
-        setListaTubos(data);
-        setListaMateriais(data.map((item) => item.material));
-        setMaterial(data[0].material);
-    };
-
+    
     useEffect(()=>{
+        const fetchTubos = async () => {
+            const data = await obterTubos("./src/data/nbr_5626_tubos.json");
+            setListaTubos(data);
+            setListaMateriais(data.map((item) => item.material));
+            setMaterial(data[0].material);
+        };
         fetchTubos();
     }, []);
 

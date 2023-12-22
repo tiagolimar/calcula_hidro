@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import { Calculadora } from './components/Secoes/Calculadora.jsx';
-import { Tubos } from './components/Secoes/Tubos.jsx'
+import { Tubos } from './components/Secoes/Tubos/Tubos.jsx'
 
 function App() {
     return (

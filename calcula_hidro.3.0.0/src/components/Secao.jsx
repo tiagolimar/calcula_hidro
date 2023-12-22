@@ -8,7 +8,12 @@ export const Secao = (props) => {
             <Card.Body>
                 <Row>
                     {props.children.map((item, id) => {
-                        return <Col key={id}>{item}</Col>;
+                        return (
+                            <Col className={props.size? `col-${props.size}`:""}
+                                key={id}>
+                                {item}
+                            </Col>
+                        );
                     })}
                 </Row>
             </Card.Body>
@@ -19,4 +24,5 @@ export const Secao = (props) => {
 Secao.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
+    size: PropTypes.number,
 };

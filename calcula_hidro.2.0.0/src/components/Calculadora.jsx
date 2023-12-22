@@ -16,7 +16,7 @@ import { calcularExpressao } from "./functions/calcularExpressao";
  */
 export const Calculadora = () => {
   let [entrada, setEntrada] = useState("");
-  let [output, setOutput] = useState("");
+  let [saida, setSaida] = useState("");
 
   let handleOnKeyUp = (e)=> {
     if(e.keyCode == 13){ calc()}}
@@ -28,14 +28,14 @@ export const Calculadora = () => {
 
   let calc = ()=>{
     let resultado = calcularExpressao(entrada)
-    setOutput(resultado)
+    setSaida(resultado)
   } 
   
   return (
     <Card title="Calculadora">
         <InputText width={5} title="Resultado" placeholder="Expressão..." value={entrada} onChange={handleOnChange} onKeyUp={handleOnKeyUp} />
         <Button width={2} id="calcular" title="=" onClick={calc} />
-        <InputText disabled title="Resultado" placeholder="Resultado..." value={output} />
+        <InputText disabled title="Resultado" placeholder="Resultado..." value={saida} />
     </Card>
   );
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 
-import { InputText } from "../InputText";
+import { Input } from "../Input";
 import { Secao } from "../Secao";
 import { calcularExpressao } from "../Funcoes/calcularExpressao.js";
 
@@ -13,8 +13,9 @@ export const Calculadora = () => {
 
     return (
         <Secao title="Calculadora">
-            <InputText
+            <Input
                 title="Expressão"
+                type="text"
                 value={entrada}
                 onChange={(e) => setEntrada(e.target.value)}
                 onKeyUp={(e) => e.keyCode == 13 && calcular()}
@@ -25,7 +26,7 @@ export const Calculadora = () => {
                 Calcular
             </Button>
             
-            <InputText
+            <Input
                 title="Resultado"
                 readOnly
                 value={saida}
